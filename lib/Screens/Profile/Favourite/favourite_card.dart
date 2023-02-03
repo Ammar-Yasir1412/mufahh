@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../Functions/addToCart.dart';
 import '../../../Widgets/drop_button.dart';
 import '../../Dashboard/item_detail.dart';
 
@@ -17,7 +18,6 @@ class favourite_card extends StatefulWidget {
 }
 
 class _favourite_cardState extends State<favourite_card> {
-  bool _disable = false;
   bool like = false;
 
   @override
@@ -43,6 +43,8 @@ class _favourite_cardState extends State<favourite_card> {
                     )));
       },
       child: Container(
+        margin: const EdgeInsets.only(left: 12.0, right: 12, top: 12),
+        padding: const EdgeInsets.all(4.0),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -53,61 +55,65 @@ class _favourite_cardState extends State<favourite_card> {
           padding: const EdgeInsets.all(4.0),
           child: Stack(
             children: [
-              Column(
+              Row(
                 children: [
                   Container(
-                      width: 190.00,
-                      height: 120.00,
+                      width: 120.00,
+                      height: 100.00,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
-                        image: _disable
-                            ? DecorationImage(
-                                image: AssetImage("logo"),
-                                fit: BoxFit.fill,
-                              )
-                            : DecorationImage(
-                                image: NetworkImage('${widget.data["url"]}'),
-                                fit: BoxFit.fill,
-                              ),
-                      )),
-                  SizedBox(
-                    width: 200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          '${widget.data["title"]}',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        image: DecorationImage(
+                          image: NetworkImage('${widget.data["url"]}'),
+                          fit: BoxFit.fill,
                         ),
-                        // Text(
-                        //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
-                        //
-                        //   style: TextStyle(color: Colors.black),
-                        // ),
-                        // Text(
-                        //   "${widget.data["description"]}",
-                        //   overflow: TextOverflow.ellipsis,
-                        //
-                        //   style: TextStyle(color: Colors.black),
-                        // ),
-                      ],
-                    ),
+                      )),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        '${widget.data["title"]}',
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '${widget.data["category"]}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        "${widget.data["description"]}",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              widget.data["UID"] == widget.UserData["UID"]
-                  ? Positioned(
-                      right: -7,
-                      bottom: -5,
-                      child: drop_button(
-                          Coll: "products",
-                          Doc: widget.data["Key"],
-                          disable: !_disable))
-                  : Container()
+              Positioned(
+                right: 10,
+                top: 10,
+                child: InkWell(
+                  onTap: () {
+                    if (like == false) {
+                      addToCart(widget.data["Key"], widget.data["Likes"],
+                          widget.UserData);
+                    } else {
+                      UnaddToCart(widget.data["Key"], widget.data["Likes"],
+                          widget.UserData);
+                      setState(() {
+                        like = false;
+                      });
+                    }
+                  },
+                  child: Icon(
+                    like ? Icons.favorite : Icons.favorite_border,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

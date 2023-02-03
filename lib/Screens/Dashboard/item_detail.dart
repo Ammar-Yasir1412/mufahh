@@ -177,28 +177,33 @@ class _item_detailState extends State<item_detail> {
                     ),
                   ),
                   _spacer(),
-                  Center(
-                    child: Text(
-                      "Biddings ",
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: widget.data['Bid'].length ?? [].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var _data = widget.data['Bid'][index];
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _text(_data['username']),
-                            _text(_data['amount']),
-                          ],
-                        );
-                      }),
+
+                  widget.data['Bid'] != null?  Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          "Biddings ",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:  widget.data['Bid'].length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var _data = widget.data['Bid'][index];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _text(_data['username']),
+                                _text(_data['amount']),
+                              ],
+                            );
+                          }),
+                    ],
+                  ):Container(),
                   _spacer(),
                   Center(
                       child: widget.data["UID"] == widget.UserData["UID"]
