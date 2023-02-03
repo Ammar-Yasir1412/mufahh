@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
 import '../../Widgets/myLargeButton.dart';
-import '../../constants/style.dart';
-import 'dart:math';
+import '../../Widgets/myTextField.dart';
+
 
 class item_detail extends StatefulWidget {
   final Map data;
@@ -19,9 +19,35 @@ class item_detail extends StatefulWidget {
 
 class _item_detailState extends State<item_detail> {
   bool looding = false;
-  TextEditingController amountCTRL = TextEditingController(text: "50000");
+  TextEditingController amountCTRL = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  addBid() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Add Your Bid"),
+        content: myTextField(
+          context,
+          "Enter your Amount",
+          Icons.person,
+          amountCTRL,
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              bidNow();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              child: const Text("Confirm"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   bidNow() async {
     setState(() {
@@ -177,39 +203,41 @@ class _item_detailState extends State<item_detail> {
                     ),
                   ),
                   _spacer(),
-
-                  widget.data['Bid'] != null?  Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          "Biddings ",
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:  widget.data['Bid'].length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var _data = widget.data['Bid'][index];
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _text(_data['username']),
-                                _text(_data['amount']),
-                              ],
-                            );
-                          }),
-                    ],
-                  ):Container(),
+                  widget.data['Bid'] != null
+                      ? Column(
+                          children: [
+                            Center(
+                              child: Text(
+                                "Biddings ",
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: widget.data['Bid'].length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var _data = widget.data['Bid'][index];
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _text(_data['username']),
+                                      _text(_data['amount']),
+                                    ],
+                                  );
+                                }),
+                          ],
+                        )
+                      : Container(),
                   _spacer(),
                   Center(
                       child: widget.data["UID"] == widget.UserData["UID"]
                           ? myLargeButton(
                               context, "Close Bid", closeBid, looding)
-                          : myLargeButton(context, "Bid Now", bidNow, looding)),
+                          : myLargeButton(context, "Bid Now", addBid, looding)),
                 ],
               ),
             ),

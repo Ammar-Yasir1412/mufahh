@@ -68,27 +68,33 @@ class _favourite_cardState extends State<favourite_card> {
                           fit: BoxFit.fill,
                         ),
                       )),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        '${widget.data["title"]}',
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 90,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${widget.data["title"]}',
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '${widget.data["category"]}',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Text(
+                            "${widget.data["description"]}",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
                       ),
-                      Text(
-                        '${widget.data["category"]}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(
-                        "${widget.data["description"]}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
