@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
+import '../../Widgets/myLargeButton.dart';
 import '../../constants/style.dart';
 import 'dart:math';
 
@@ -73,12 +74,16 @@ class _item_detailState extends State<item_detail> {
           bidWiner = bidData[i];
         }
       }
-      print(bidWiner.toString());
       await firestore
           .collection("products")
           .doc(widget.data["Key"])
           .update({"bidClose": true, "winner": bidWiner["UID"]});
-      toast("Bid Uploaded");
+      await firestore.collection("notification").doc().set({
+        "title":
+            "Congratulation ${bidWiner["username"]} you are won the ${widget.data["title"]}. Contact the owner and get the product.",
+        "UID": bidWiner["UID"]
+      });
+      toast("Bid Complete");
       Navigator.pop(context);
     } catch (e) {
       toast(e.toString());
@@ -93,7 +98,25 @@ class _item_detailState extends State<item_detail> {
     var vwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail"),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                (Color.fromARGB(255, 99, 4, 4)),
+                (Color.fromARGB(255, 99, 4, 4)),
+                (Color.fromARGB(255, 223, 24, 17))
+              ],
+            ),
+          ),
+        ),
+        title: Text(
+          "Detail",
+          style: const TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
       ),
       // MyAppBar2(context, "Detail", true, () {}, false),
       body: SingleChildScrollView(
@@ -162,7 +185,7 @@ class _item_detailState extends State<item_detail> {
                   ),
                   ListView.builder(
                       shrinkWrap: true,
-                      itemCount: widget.data['Bid']??[].length,
+                      itemCount: widget.data['Bid'].length ?? [].length,
                       itemBuilder: (BuildContext context, int index) {
                         var _data = widget.data['Bid'][index];
                         return Row(
@@ -175,39 +198,11 @@ class _item_detailState extends State<item_detail> {
                       }),
                   _spacer(),
                   Center(
-                    child: InkWell(
-                      onTap: () {
-                        widget.data["UID"] == widget.UserData["UID"]
-                            ? closeBid()
-                            : bidNow();
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: appBarColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 8.0,
-                            right: 18.0,
-                            left: 18.0,
-                            bottom: 8.0,
-                          ),
-                          child: Text(
-                            widget.data["UID"] == widget.UserData["UID"]
-                                ? "Close Bid"
-                                : "Bid Now",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                      child: widget.data["UID"] == widget.UserData["UID"]
+                          ? myLargeButton(
+                              context, "Close Bid", closeBid, looding)
+                          : myLargeButton(
+                              context, "Bid Now", bidNow, looding)),
                 ],
               ),
             ),
