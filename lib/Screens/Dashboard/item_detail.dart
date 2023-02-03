@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../Functions/addToCart.dart';
+import 'package:intl/intl.dart';
+import '../../Functions/toast.dart';
 import '../../constants/style.dart';
 
 class item_detail extends StatefulWidget {
@@ -14,39 +15,49 @@ class item_detail extends StatefulWidget {
 }
 
 class _item_detailState extends State<item_detail> {
-  var amount = 1;
+  bool looding = false;
+  TextEditingController amountCTRL = TextEditingController(text: "50000");
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  bidNow  () async {
+    setState(() {
+      looding = true;
+    });
+    var amount = amountCTRL.text;
+
+    try {
+      if (amount != '') {
+        DateTime now = DateTime.now();
+        String formattedDate = DateFormat('EEE d MMM').format(now);
+        var data = widget.data['Bid']??[];
+        data.add({
+          "UID": widget.UserData["UID"],
+          "amount":amount,
+          "address": widget.UserData["address"],
+          "username": widget.UserData["username"],
+          "email": widget.UserData["email"],
+          "PhoneNo": widget.UserData["PhoneNo"],
+          "JoinDate": formattedDate,
+        });
+        await firestore.collection("products").doc(widget.data["Key"]).update({
+          "Bid": data
+        });
+        toast("Bid Uploaded");
+      } else {
+        toast("Please fill all text field");
+      }
+    } catch (e) {
+      print(e);
+      toast(e.toString());
+    }
+    setState(() {
+      looding = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    // var number = widget.stalldata["PhoneNo"];
-    // var totelprice = int.parse(widget.data["Price"]) * amount;
-    // var text =
-    //     " hi! ${widget.stalldata["stallname"]} I want to buy $amount ${widget.data["foodname"]} in $totelprice Rupees. in which time you will deliver";
-    // Future<void> whatsappsms() async {
-    //   final Uri _url = Uri.parse("whatsapp://send?phone=$number&text=$text");
-    //   if (await canLaunchUrl(_url)) {
-    //     await launchUrl(_url);
-    //   } else {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //         const SnackBar(content: Text("Whatsapp not installed")));
-    //   }
-    // }
-    //
-    // Future<void> simsms() async {
-    //   final Uri _url = Uri.parse("sms:$number?body=$text");
-    //   if (await canLaunchUrl(_url)) {
-    //     await launchUrl(_url);
-    //   }
-    // }
-    //
-    // Future<void> call() async {
-    //   final Uri _url = Uri.parse("tel:$number");
-    //   if (await canLaunchUrl(_url)) {
-    //     await launchUrl(_url);
-    //   }
-    // }
-
     var vwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +80,7 @@ class _item_detailState extends State<item_detail> {
                     children: [
                       Text(
                         "${widget.data["title"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
                         ),
@@ -110,26 +121,31 @@ class _item_detailState extends State<item_detail> {
                   _spacer(),
                   _spacer(),
                   Center(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: appBarColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                    child: InkWell(
+                      onTap: (){
+                        bidNow();
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: appBarColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          right: 18.0,
-                          left: 18.0,
-                          bottom: 8.0,
-                        ),
-                        child: Text(
-                          "Bid Now",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                              color: Colors.white),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            top: 8.0,
+                            right: 18.0,
+                            left: 18.0,
+                            bottom: 8.0,
+                          ),
+                          child: Text(
+                            "Bid Now",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 28,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -138,7 +154,7 @@ class _item_detailState extends State<item_detail> {
               ),
             ),
             _spacer(),
-            _spacer()
+
           ],
         ),
       ),
