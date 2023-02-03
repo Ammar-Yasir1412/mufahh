@@ -48,7 +48,7 @@ class _dashboardState extends State<dashboard> {
   final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
       .collection('products')
       // .orderBy('Date', descending: true)
-      //     .where('UID', isEqualTo: widget.UserData["UID"])
+          .where('bidClose', isEqualTo: false)
       // .limitToLast(2)l
       .snapshots();
   final Stream<QuerySnapshot> _sliderStream =

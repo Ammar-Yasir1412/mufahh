@@ -63,6 +63,7 @@ class _Add_productState extends State<Add_product> {
           "UID": widget.UserData["UID"],
           "category": categoriesValue,
           "title": title,
+          "bidClose": false,
           "description": description,
           "address": address,
           "url": URL,
