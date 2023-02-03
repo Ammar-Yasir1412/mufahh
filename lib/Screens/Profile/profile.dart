@@ -4,7 +4,9 @@ import 'package:mufahh/Screens/Profile/History.dart';
 import 'package:mufahh/Screens/Profile/myads.dart';
 import 'package:mufahh/Screens/Profile/Setings.dart';
 
+import '../../Widgets/myLargeButton.dart';
 import '../auth/Splash_Screen.dart';
+import 'Favourite/myFavourite.dart';
 
 class profile extends StatefulWidget {
   final Map UserData;
@@ -31,10 +33,11 @@ class _profileState extends State<profile> {
                 (Color.fromARGB(255, 99, 4, 4)),
                 (Color.fromARGB(255, 99, 4, 4)),
                 (Color.fromARGB(255, 223, 24, 17))
-              ],),
+              ],
+            ),
           ),
         ),
-        title:  const Text(
+        title: const Text(
           "PROFILE",
           style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
@@ -44,7 +47,6 @@ class _profileState extends State<profile> {
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
                 Widget>[
-
           SizedBox(
             height: 20,
           ),
@@ -60,15 +62,15 @@ class _profileState extends State<profile> {
                         width: 130,
                         child: widget.UserData["profile"] != null
                             ? CircleAvatar(
-                          radius: 70,
-                          backgroundImage:
-                          NetworkImage(widget.UserData["profile"]),
-                        )
+                                radius: 70,
+                                backgroundImage:
+                                    NetworkImage(widget.UserData["profile"]),
+                              )
                             : const CircleAvatar(
-                          radius: 70,
-                          backgroundImage:
-                          AssetImage('assets/Images/profile.jpg'),
-                        ),
+                                radius: 70,
+                                backgroundImage:
+                                    AssetImage('assets/Images/profile.jpg'),
+                              ),
                       ),
                     ),
                     GestureDetector(
@@ -93,111 +95,36 @@ class _profileState extends State<profile> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Myadds(UserData: widget.UserData,)),
-                            );
-                          },
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(color: Colors.white),
-                            child: const Text(
-                              "My ADS",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
+                        textCard(
+                            context,
+                            Myadds(
+                              UserData: widget.UserData,
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => history()),
-                              );
-                            },
-                            child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(color: Colors.white),
-                                child: const Text(
-                                  "History",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ))),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Settings(
-                                          UserData: widget.UserData,
-                                        )),
-                              );
-                            },
-                            child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(color: Colors.white),
-                                child: const Text(
-                                  "Settings",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                )))
+                            "My ADS"),
+                        textCard(
+                            context,
+                            myFavourite(
+                              UserData: widget.UserData,
+                            ),
+                            "My Favourite"),
+                        textCard(context, history(), "History"),
+                        textCard(
+                            context,
+                            Settings(
+                              UserData: widget.UserData,
+                            ),
+                            "Settings"),
                       ],
                     ),
                     SizedBox(
                       height: 10,
-                      width: 15,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => splashscreen()),
-                        );
-                      },
-                      child: AnimatedContainer(
-                          alignment: Alignment.center,
-                          duration: Duration(milliseconds: 300),
-                          height: 45,
-                          width: MediaQuery.of(context).size.width * 0.90,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  (Color.fromARGB(255, 99, 4, 4)),
-                                  (Color.fromARGB(255, 223, 24, 17)),
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: const Text(
-                            "LOGOUT",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          )),
-                    ),
+                    myLargeButton(context, "LOGOUT", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => splashscreen()),
+                      );
+                    }, false),
                   ]),
             ),
           ),
@@ -205,4 +132,31 @@ class _profileState extends State<profile> {
       ),
     );
   }
+}
+
+Widget textCard(context, page, title) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => page),
+      );
+    },
+    child: Card(
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
