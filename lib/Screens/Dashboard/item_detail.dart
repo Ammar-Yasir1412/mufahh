@@ -8,7 +8,8 @@ class item_detail extends StatefulWidget {
   final Map data;
   final Map UserData;
 
-  const item_detail({Key? key, required this.data, required this.UserData}) : super(key: key);
+  const item_detail({Key? key, required this.data, required this.UserData})
+      : super(key: key);
 
   @override
   State<item_detail> createState() => _item_detailState();
@@ -20,7 +21,7 @@ class _item_detailState extends State<item_detail> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  bidNow  () async {
+  bidNow() async {
     setState(() {
       looding = true;
     });
@@ -30,19 +31,56 @@ class _item_detailState extends State<item_detail> {
       if (amount != '') {
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('EEE d MMM').format(now);
-        var data = widget.data['Bid']??[];
+        var data = widget.data['Bid'] ?? [];
         data.add({
           "UID": widget.UserData["UID"],
-          "amount":amount,
+          "amount": amount,
           "address": widget.UserData["address"],
           "username": widget.UserData["username"],
           "email": widget.UserData["email"],
           "PhoneNo": widget.UserData["PhoneNo"],
           "JoinDate": formattedDate,
         });
-        await firestore.collection("products").doc(widget.data["Key"]).update({
-          "Bid": data
+        await firestore
+            .collection("products")
+            .doc(widget.data["Key"])
+            .update({"Bid": data});
+        toast("Bid Uploaded");
+      } else {
+        toast("Please fill all text field");
+      }
+    } catch (e) {
+      print(e);
+      toast(e.toString());
+    }
+    setState(() {
+      looding = false;
+    });
+  }
+  closeBid() async {
+    setState(() {
+      looding = true;
+    });
+    var amount = amountCTRL.text;
+
+    try {
+      if (amount != '') {
+        DateTime now = DateTime.now();
+        String formattedDate = DateFormat('EEE d MMM').format(now);
+        var data = widget.data['Bid'] ?? [];
+        data.add({
+          "UID": widget.UserData["UID"],
+          "amount": amount,
+          "address": widget.UserData["address"],
+          "username": widget.UserData["username"],
+          "email": widget.UserData["email"],
+          "PhoneNo": widget.UserData["PhoneNo"],
+          "JoinDate": formattedDate,
         });
+        await firestore
+            .collection("products")
+            .doc(widget.data["Key"])
+            .update({"Bid": data});
         toast("Bid Uploaded");
       } else {
         toast("Please fill all text field");
@@ -119,11 +157,34 @@ class _item_detailState extends State<item_detail> {
                     ),
                   ),
                   _spacer(),
+                  Center(
+                    child: Text(
+                      "Biddings ",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.data['Bid'].length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var _data = widget.data['Bid'][index];
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _text(_data['username']),
+                            _text(_data['amount']),
+                          ],
+                        );
+                      }),
                   _spacer(),
                   Center(
                     child: InkWell(
-                      onTap: (){
-                        bidNow();
+                      onTap: () {
+                        widget.data["UID"] == widget.UserData["UID"]?
+                        bidNow():closeBid();
                       },
                       child: Container(
                         decoration: const BoxDecoration(
@@ -132,7 +193,7 @@ class _item_detailState extends State<item_detail> {
                             Radius.circular(10),
                           ),
                         ),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.only(
                             top: 8.0,
                             right: 18.0,
@@ -140,8 +201,10 @@ class _item_detailState extends State<item_detail> {
                             bottom: 8.0,
                           ),
                           child: Text(
-                            "Bid Now",
-                            style: TextStyle(
+                            widget.data["UID"] == widget.UserData["UID"]
+                                ? "Close Bid"
+                                : "Bid Now",
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 28,
                                 color: Colors.white),
@@ -154,7 +217,6 @@ class _item_detailState extends State<item_detail> {
               ),
             ),
             _spacer(),
-
           ],
         ),
       ),
@@ -166,5 +228,15 @@ Widget _spacer() {
   return SizedBox(
     height: 10,
     width: 10,
+  );
+}
+
+Widget _text(text) {
+  return SizedBox(
+    width: 150,
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 18),
+    ),
   );
 }
