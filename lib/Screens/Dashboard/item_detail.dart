@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
 import '../../constants/style.dart';
+import 'dart:math';
 
 class item_detail extends StatefulWidget {
   final Map data;
@@ -57,14 +58,22 @@ class _item_detailState extends State<item_detail> {
       looding = false;
     });
   }
+
   closeBid() async {
     setState(() {
       looding = true;
     });
-    var amount = amountCTRL.text;
-
+   var bidData = widget.data['Bid'];
+   var bidWiner = bidData[0];
     try {
-
+      var largervalue = 0;
+      for (int i = 0; i < bidData.length; i++) {
+        if (int.parse(bidData[i]["amount"]) > largervalue) {
+          largervalue = int.parse(bidData[i]["amount"]);
+          bidWiner = bidData[i];
+        }
+      }
+      print(bidWiner.toString());
       // if (amount != '') {
       //   DateTime now = DateTime.now();
       //   // String formattedDate = DateFormat('EEE d MMM').format(now);
@@ -183,8 +192,9 @@ class _item_detailState extends State<item_detail> {
                   Center(
                     child: InkWell(
                       onTap: () {
-                        widget.data["UID"] == widget.UserData["UID"]?
-                        bidNow():closeBid();
+                        widget.data["UID"] == widget.UserData["UID"]
+                            ? closeBid()
+                            : bidNow();
                       },
                       child: Container(
                         decoration: const BoxDecoration(
