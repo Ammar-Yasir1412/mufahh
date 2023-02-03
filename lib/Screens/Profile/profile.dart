@@ -107,7 +107,12 @@ class _profileState extends State<profile> {
                               UserData: widget.UserData,
                             ),
                             "My Favourite"),
-                        textCard(context, history(), "History"),
+                        textCard(
+                            context,
+                            history(
+                              UserData: widget.UserData,
+                            ),
+                            "History"),
                         textCard(
                             context,
                             Settings(

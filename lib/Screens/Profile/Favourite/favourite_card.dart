@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../Functions/addToCart.dart';
 import '../../../Widgets/drop_button.dart';
 import '../../Dashboard/item_detail.dart';
 
@@ -24,18 +22,14 @@ class _favourite_cardState extends State<favourite_card> {
 
   @override
   Widget build(BuildContext context) {
-    // widget.itemdata["disable"] != null ? _disable = widget.itemdata["disable"] : null;
     var Likes = widget.data["Likes"];
     if (Likes != null) {
-      // TotelLikes = Likes.length;
-      // print('===========Length=============>${Likes.length}');
       for (var entry in Likes.entries) {
         if (widget.data["UID"] == entry.value) {
           setState(() {
             like = true;
           });
         }
-        // print('===========Like or unlike=============>${Like}');
       }
     }
     return InkWell(
@@ -73,8 +67,7 @@ class _favourite_cardState extends State<favourite_card> {
                                 fit: BoxFit.fill,
                               )
                             : DecorationImage(
-                                image:
-                                    NetworkImage('${widget.data["url"]}'),
+                                image: NetworkImage('${widget.data["url"]}'),
                                 fit: BoxFit.fill,
                               ),
                       )),

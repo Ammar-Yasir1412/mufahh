@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'Favourite/favourite_card.dart';
 
-import '../Dashboard/item_card.dart';
 
 class Myadds extends StatefulWidget {
   final Map UserData;
@@ -17,7 +17,7 @@ class _MyaddsState extends State<Myadds> {
     final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
         .collection('products')
     // .orderBy('Date', descending: true)
-        .where('UID', isEqualTo: widget.UserData["UID"])
+        .where('UID', isEqualTo: widget.UserData["UID"]).where('bidClose', isEqualTo: false)
     // .limitToLast(2)l
         .snapshots();
 
@@ -77,26 +77,12 @@ class _MyaddsState extends State<Myadds> {
                 snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-                  return item_card(
+                  return favourite_card(
                     data: data,
                     UserData: widget.UserData,
                   );
                 }).toList(),
               );
-              // return ListView(
-              //   physics: const BouncingScrollPhysics(
-              //       parent: AlwaysScrollableScrollPhysics()),
-              //   controller: ScrollController(),
-              //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              //     Map<String, dynamic> data =
-              //         document.data()! as Map<String, dynamic>;
-              //     return item_card(
-              //       itemdata: data,
-              //       stalldata: widget.stalldata,
-              //       UserData: widget.UserData,
-              //     );
-              //   }).toList(),
-              // );
             },
           ),
 
