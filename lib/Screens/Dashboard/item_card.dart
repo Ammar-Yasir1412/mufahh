@@ -89,13 +89,10 @@ class _item_cardState extends State<item_card> {
                         child: InkWell(
                           onTap: () {
                             if (like == false) {
-                              print(
-                                  "==================>if${widget.data["Key"]}");
                               addToCart(widget.data["Key"],
                                   widget.data["Likes"], widget.UserData);
                             } else {
-                              print("==================>else");
-                              UnaddToCart(widget.data["key"],
+                              UnaddToCart(widget.data["Key"],
                                   widget.data["Likes"], widget.UserData);
                               setState(() {
                                 like = false;
