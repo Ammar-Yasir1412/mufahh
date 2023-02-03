@@ -63,8 +63,8 @@ class _item_detailState extends State<item_detail> {
     setState(() {
       looding = true;
     });
-   var bidData = widget.data['Bid'];
-   var bidWiner = bidData[0];
+    var bidData = widget.data['Bid'];
+    var bidWiner = bidData[0];
     try {
       var largervalue = 0;
       for (int i = 0; i < bidData.length; i++) {
@@ -74,27 +74,12 @@ class _item_detailState extends State<item_detail> {
         }
       }
       print(bidWiner.toString());
-      // if (amount != '') {
-      //   DateTime now = DateTime.now();
-      //   // String formattedDate = DateFormat('EEE d MMM').format(now);
-      //   // var data = widget.data['Bid'] ?? [];
-      //   // data.add({
-      //   //   "UID": widget.UserData["UID"],
-      //   //   "amount": amount,
-      //   //   "address": widget.UserData["address"],
-      //   //   "username": widget.UserData["username"],
-      //   //   "email": widget.UserData["email"],
-      //   //   "PhoneNo": widget.UserData["PhoneNo"],
-      //   //   "JoinDate": formattedDate,
-      //   // });
-      //   await firestore
-      //       .collection("products")
-      //       .doc(widget.data["Key"])
-      //       .update({"Bid": data});
-      //   toast("Bid Uploaded");
-      // } else {
-      //   toast("Please fill all text field");
-      // }
+      await firestore
+          .collection("products")
+          .doc(widget.data["Key"])
+          .update({"bidClose": true, "winner": bidWiner["UID"]});
+      toast("Bid Uploaded");
+      Navigator.pop(context);
     } catch (e) {
       toast(e.toString());
     }
@@ -177,7 +162,7 @@ class _item_detailState extends State<item_detail> {
                   ),
                   ListView.builder(
                       shrinkWrap: true,
-                      itemCount: widget.data['Bid'].length,
+                      itemCount: widget.data['Bid']??[].length,
                       itemBuilder: (BuildContext context, int index) {
                         var _data = widget.data['Bid'][index];
                         return Row(
