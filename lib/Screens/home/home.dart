@@ -76,7 +76,7 @@ class _homeState extends State<home> {
                         minWidth: 60,
                         onPressed: () {
                           setState(() {
-                            CurrentScreen = notification();
+                            CurrentScreen = notification(UserData: widget.UserData,);
                             currentTab = 1;
                           });
                         },

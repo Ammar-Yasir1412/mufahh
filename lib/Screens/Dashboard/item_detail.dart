@@ -74,6 +74,8 @@ class _item_detailState extends State<item_detail> {
           bidWiner = bidData[i];
         }
       }
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('EEE d MMM').format(now);
       await firestore
           .collection("products")
           .doc(widget.data["Key"])
@@ -81,7 +83,8 @@ class _item_detailState extends State<item_detail> {
       await firestore.collection("notification").doc().set({
         "title":
             "Congratulation ${bidWiner["username"]} you are won the ${widget.data["title"]}. Contact the owner and get the product.",
-        "UID": bidWiner["UID"]
+        "UID": bidWiner["UID"],
+        "JoinDate": formattedDate,
       });
       toast("Bid Complete");
       Navigator.pop(context);
@@ -201,8 +204,7 @@ class _item_detailState extends State<item_detail> {
                       child: widget.data["UID"] == widget.UserData["UID"]
                           ? myLargeButton(
                               context, "Close Bid", closeBid, looding)
-                          : myLargeButton(
-                              context, "Bid Now", bidNow, looding)),
+                          : myLargeButton(context, "Bid Now", bidNow, looding)),
                 ],
               ),
             ),
