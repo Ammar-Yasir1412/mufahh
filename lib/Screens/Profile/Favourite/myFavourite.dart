@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Dashboard/item_card.dart';
+import 'favourite_card.dart';
 
 class myFavourite extends StatefulWidget {
   final Map UserData;
+
   const myFavourite({super.key, required this.UserData});
 
   @override
@@ -16,9 +18,9 @@ class _myFavouriteState extends State<myFavourite> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
         .collection('products')
-    // .orderBy('Date', descending: true)
-    //     .where('UID', isEqualTo: widget.UserData["UID"])
-    // .limitToLast(2)l
+        // .orderBy('Date', descending: true)
+        //     .where('UID', isEqualTo: widget.UserData["UID"])
+        // .limitToLast(2)l
         .snapshots();
 
     return Scaffold(
@@ -38,23 +40,22 @@ class _myFavouriteState extends State<myFavourite> {
             ),
           ),
           title: const Text(
-            "MY ADS",
+            "MY Favourite",
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(
-          child:             StreamBuilder<QuerySnapshot>(
+          child: StreamBuilder<QuerySnapshot>(
             stream: _itemStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return Container(
-                    child: Column(
-                      children: [
-                        Text('Something went wrong'),
-                      ],
-                    ));
+                return Column(
+                  children: const [
+                    Text('Something went wrong'),
+                  ],
+                );
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -63,7 +64,7 @@ class _myFavouriteState extends State<myFavourite> {
                 );
               }
               if (snapshot.data?.size == 0) {
-                return Center(child: const Text("No data found"));
+                return const Center(child: Text("No data found"));
               }
               return GridView.extent(
                 primary: false,
@@ -73,33 +74,17 @@ class _myFavouriteState extends State<myFavourite> {
                 childAspectRatio: (1 / 1.18),
                 shrinkWrap: true,
                 maxCrossAxisExtent: 200.0,
-                children:
-                snapshot.data!.docs.map((DocumentSnapshot document) {
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-                  return item_card(
+                      document.data()! as Map<String, dynamic>;
+                  return favourite_card(
                     data: data,
                     UserData: widget.UserData,
                   );
                 }).toList(),
               );
-              // return ListView(
-              //   physics: const BouncingScrollPhysics(
-              //       parent: AlwaysScrollableScrollPhysics()),
-              //   controller: ScrollController(),
-              //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              //     Map<String, dynamic> data =
-              //         document.data()! as Map<String, dynamic>;
-              //     return item_card(
-              //       itemdata: data,
-              //       stalldata: widget.stalldata,
-              //       UserData: widget.UserData,
-              //     );
-              //   }).toList(),
-              // );
             },
           ),
-
         ));
   }
 }

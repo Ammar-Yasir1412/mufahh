@@ -40,9 +40,6 @@ class _favourite_cardState extends State<favourite_card> {
     }
     return InkWell(
       onTap: () {
-        // _disable
-        //     ?
-        // snackbar("Sorry This is unavailable at this time"):
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -64,49 +61,23 @@ class _favourite_cardState extends State<favourite_card> {
             children: [
               Column(
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                          width: 190.00,
-                          height: 120.00,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            image: _disable
-                                ? DecorationImage(
-                                    image: AssetImage("logo"),
-                                    fit: BoxFit.fill,
-                                  )
-                                : DecorationImage(
-                                    image:
-                                        NetworkImage('${widget.data["url"]}'),
-                                    fit: BoxFit.fill,
-                                  ),
-                          )),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: InkWell(
-                          onTap: () {
-                            if (like == false) {
-                              addToCart(widget.data["Key"],
-                                  widget.data["Likes"], widget.UserData);
-                            } else {
-                              UnaddToCart(widget.data["Key"],
-                                  widget.data["Likes"], widget.UserData);
-                              setState(() {
-                                like = false;
-                              });
-                            }
-                          },
-                          child: Icon(
-                            like ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  Container(
+                      width: 190.00,
+                      height: 120.00,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        image: _disable
+                            ? DecorationImage(
+                                image: AssetImage("logo"),
+                                fit: BoxFit.fill,
+                              )
+                            : DecorationImage(
+                                image:
+                                    NetworkImage('${widget.data["url"]}'),
+                                fit: BoxFit.fill,
+                              ),
+                      )),
                   SizedBox(
                     width: 200,
                     child: Column(
