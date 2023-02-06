@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:mufahh/Screens/Categories/Categories.dart';
-import 'package:mufahh/items.dart';
 
 import '../../constants/data.dart';
 import 'item_card.dart';
