@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Functions/addToCart.dart';
 import '../../Widgets/drop_button.dart';
 import '../Dashboard/item_detail.dart';
+import 'cart_detail.dart';
 
 class cart_card extends StatefulWidget {
   final Map data;
@@ -28,7 +29,7 @@ class _cart_cardState extends State<cart_card> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => item_detail(
+                builder: (context) => cart_detail(
                       data: widget.data,
                       UserData: widget.UserData,
                     )));
