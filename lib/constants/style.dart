@@ -12,7 +12,7 @@ const Color lightGrey = Color(0xffF6F6F6);
 const Color grey = Color(0xffAAAAAA);
 
 // AppBar background Color
-const Color appBarColor = Color(0xffFFA500);
+const Color appBarColor = Color.fromARGB(255, 223, 24, 17);
 const Color seconderyColor = Color(0xff00BED8);
 
 

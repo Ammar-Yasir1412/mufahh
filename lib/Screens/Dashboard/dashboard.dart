@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:mufahh/Screens/Categories/Categories.dart';
+import 'package:mufahh/constants/style.dart';
 
+import '../../Widgets/myTextField.dart';
 import '../../constants/data.dart';
+import 'Searching.dart';
 import 'item_card.dart';
 
 class dashboard extends StatefulWidget {
@@ -17,13 +20,6 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
-  List images = [
-    {"name": 'Phone ', "picture": 'assets/iphone.jpg'},
-    {"name": 'Car ', "picture": 'assets/Civic.jpg'},
-    {"name": 'Furniture ', "picture": 'assets/sofa.jpg'},
-    {"name": 'Home Appliances ', "picture": 'assets/Refri.jpg'}
-  ];
-
   List<Color> colorLst = [
     Colors.pink.shade300,
     Colors.blue.shade300,
@@ -42,16 +38,16 @@ class _dashboardState extends State<dashboard> {
     Colors.blue.shade300,
     Colors.purple.shade300,
   ];
-  List<String>? items = ["Cars", "Furniture", "Home Appliances"];
   var _chosenValue = '';
   final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
       .collection('products')
       // .orderBy('Date', descending: true)
-          .where('bidClose', isEqualTo: false)
+      .where('bidClose', isEqualTo: false)
       // .limitToLast(2)l
       .snapshots();
   final Stream<QuerySnapshot> _sliderStream =
       FirebaseFirestore.instance.collection('Slider').snapshots();
+  final TextEditingController searchCTRL = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,36 +60,33 @@ class _dashboardState extends State<dashboard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 SizedBox(height: 50),
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: DropdownSearch<String>(
-                      // autoValidateMode: AutovalidateMode.always,
-                      showSearchBox: true,
-                      // validator: (value) {
-                      //   if (value == null) {
-                      //     return "Please Search for Validate Product";
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
-                      mode: Mode.DIALOG,
-                      items: items,
-                      showSelectedItems: true,
-                      dropdownSearchDecoration: const InputDecoration(
-                        labelStyle: TextStyle(color: Colors.black54),
-                        labelText: "Search Here",
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          _chosenValue = value!;
-                        });
-                      }),
+                Stack(
+                  children: [
+                    myTextField(
+                      context,
+                      "Searching",
+                      Icons.search,
+                      searchCTRL,
+                    ),
+                    Positioned(
+                        right: 10,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Searching(
+                                        UserData: widget.UserData,
+                                        searching: searchCTRL.text,
+                                      )));
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: appBarColor,
+                            )))
+                  ],
                 ),
+
                 const SizedBox(
                   height: 20,
                 ),
