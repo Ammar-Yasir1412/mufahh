@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mufahh/Screens/Profile/simple_card.dart';
 import 'Favourite/favourite_card.dart';
 
 
@@ -77,7 +78,7 @@ class _MyaddsState extends State<Myadds> {
                 snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-                  return favourite_card(
+                  return simple_card(
                     data: data,
                     UserData: widget.UserData,
                   );
