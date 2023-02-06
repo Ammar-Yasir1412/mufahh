@@ -66,6 +66,8 @@ class _Add_productState extends State<Add_product> {
           "bidClose": false,
           "description": description,
           "address": address,
+          "PhoneNo": widget.UserData["PhoneNo"],
+          "ownerName": widget.UserData["username"],
           "url": URL,
           "JoinDate": formattedDate,
         });

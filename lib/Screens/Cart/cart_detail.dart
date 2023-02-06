@@ -24,8 +24,7 @@ class _cart_detailState extends State<cart_detail> {
   Widget build(BuildContext context) {
     var number = widget.data["PhoneNo"];
     var text =
-        "Dear ${widget.data["stallname"]}, we are grateful for your support in feeding those in need. Could we please request a donation of food to help us continue our mission of fighting hunger in the community? Thank you for your generosity";
-    // " hi! ${widget.stalldata["stallname"]} I want to buy $amount ${widget.itemdata["foodname"]} in $totelprice Rupees. in which time you will deliver";
+    " hi! ${widget.data["ownerName"]} I want to buy ${widget.data["title"]}. in which time you will deliver";
     Future<void> whatsappsms() async {
       final Uri _url = Uri.parse("whatsapp://send?phone=$number&text=$text");
       if (await canLaunchUrl(_url)) {

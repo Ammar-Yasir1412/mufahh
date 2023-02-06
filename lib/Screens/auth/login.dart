@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               Container(
-                height: 350,
+                height: 300,
                 decoration: BoxDecoration(
                   borderRadius:
                       BorderRadius.only(bottomLeft: Radius.circular(90)),
@@ -89,23 +89,19 @@ class _LoginState extends State<Login> {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
+                  children: const [
+                    SizedBox(),
+              CircleAvatar(
                       radius: 60,
                       backgroundImage: AssetImage('assets/Mufahh_logo.png'),
                       backgroundColor: Color.fromARGB(255, 252, 250, 250),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 40),
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      height: 100,
-                      width: 100,
+                    Text(
+                      "LOGIN",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ],
                 )),
