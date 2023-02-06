@@ -5,7 +5,6 @@ import '../../Functions/toast.dart';
 import '../../Widgets/myLargeButton.dart';
 import '../../Widgets/myTextField.dart';
 
-
 class item_detail extends StatefulWidget {
   final Map data;
   final Map UserData;
@@ -147,7 +146,6 @@ class _item_detailState extends State<item_detail> {
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
-      // MyAppBar2(context, "Detail", true, () {}, false),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -250,7 +248,7 @@ class _item_detailState extends State<item_detail> {
 }
 
 Widget _spacer() {
-  return SizedBox(
+  return const SizedBox(
     height: 10,
     width: 10,
   );
