@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mufahh/cart.dart';
+import '../Cart/cart.dart';
 import '../Dashboard/dashboard.dart';
 import '../AddProduct/Add_product.dart';
 import '../../notification.dart';
@@ -91,7 +91,7 @@ class _homeState extends State<home> {
                         minWidth: 60,
                         onPressed: () {
                           setState(() {
-                            CurrentScreen = Cart();
+                            CurrentScreen = Cart(UserData: widget.UserData,);
                             currentTab = 2;
                           });
                         },

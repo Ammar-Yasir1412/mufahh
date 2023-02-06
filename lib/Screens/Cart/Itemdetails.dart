@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mufahh/Add_bid.dart';
-import 'cart.dart';
+
 
 class ItemDetails extends StatelessWidget {
-  String prod_name;
-  String prod_picture;
-  ItemDetails(this.prod_name, this.prod_picture);
+  final Map data;
+  final Map UserData;
+  ItemDetails({Key? key, required this.data, required this.UserData});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class ItemDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Hero(
-                  tag: prod_picture,
+                  tag: data["url"],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -28,12 +27,12 @@ class ItemDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
-                                image: AssetImage(prod_picture),
+                                image: NetworkImage(data["url"]),
                                 fit: BoxFit.cover)),
                       ),
                       SizedBox(height: 8),
                       Align(
-                          child: Text(prod_name,
+                          child: Text(data["title"],
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold)),
                           alignment: Alignment.centerLeft),
@@ -116,8 +115,8 @@ class ItemDetails extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Add_bid()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => Add_bid()));
                   },
                   child: Container(
                       margin: EdgeInsets.only(left: 20, right: 20, top: 40),
