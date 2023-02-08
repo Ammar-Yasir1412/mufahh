@@ -9,7 +9,8 @@ Widget myDelete(context, collection, doc) {
   return CircleAvatar(
     backgroundColor: Colors.white,
     child: IconButton(
-        onPressed: () async {
+        onPressed: () {
+          print("===================>");
           delete() async {
             Navigator.pop(context);
             FirebaseFirestore firestore = FirebaseFirestore.instance;

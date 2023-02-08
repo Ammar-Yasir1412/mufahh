@@ -157,7 +157,9 @@ class _item_detailState extends State<item_detail> {
                     ? Positioned(
                         top: 10,
                         right: 10,
-                        child: myDelete(context,"products",widget.data["Key"]))
+                        child:
+                            myDelete(context, "products", widget.data["Key"]),
+                      )
                     : Container()
               ],
             ),
