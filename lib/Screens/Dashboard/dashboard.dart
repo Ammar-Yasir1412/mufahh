@@ -52,14 +52,14 @@ class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(226, 75, 41, 41),
+      // backgroundColor: Color.fromARGB(226, 75, 41, 41),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(12.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Stack(
                   children: [
                     myTextField(
@@ -88,7 +88,7 @@ class _dashboardState extends State<dashboard> {
                 ),
 
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _sliderStream,
@@ -139,8 +139,7 @@ class _dashboardState extends State<dashboard> {
                   "ALL CATEGORIES",
                   style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      fontWeight: FontWeight.bold,),
                 ),
                 Container(
                     height: 50,
@@ -173,8 +172,7 @@ class _dashboardState extends State<dashboard> {
                   "Neared By",
                   style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      fontWeight: FontWeight.bold,),
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _itemStream,
@@ -194,7 +192,7 @@ class _dashboardState extends State<dashboard> {
                       );
                     }
                     if (snapshot.data?.size == 0) {
-                      return Center(child: const Text("No data found"));
+                      return const Center(child: Text("No data found"));
                     }
                     return GridView.extent(
                       primary: false,

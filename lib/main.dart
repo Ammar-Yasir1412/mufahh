@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        // theme: ThemeData(
-        //   // primarySwatch: Colors.red,
-        // ),
+        theme: ThemeData(
+          useMaterial3: true
+          // primarySwatch: Colors.red,
+        ),
         home: FutureBuilder(
           // Initialize FlutterFire
           future: Firebase.initializeApp(),

@@ -149,7 +149,25 @@ class _item_detailState extends State<item_detail> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network("${widget.data["url"]}"),
+            Stack(
+              children: [
+                Image.network("${widget.data["url"]}"),
+                widget.data["UID"] == widget.UserData["UID"]
+                    ? Positioned(
+                        top: 10,
+                        right: 10,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              )),
+                        ))
+                    : Container()
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 22.0, right: 22),
               child: Column(

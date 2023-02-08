@@ -135,15 +135,6 @@ class _item_cardState extends State<item_card> {
                   ),
                 ],
               ),
-              widget.data["UID"] == widget.UserData["UID"]
-                  ? Positioned(
-                      right: -7,
-                      bottom: -5,
-                      child: drop_button(
-                          Coll: "products",
-                          Doc: widget.data["Key"],
-                          disable: !_disable))
-                  : Container()
             ],
           ),
         ),
