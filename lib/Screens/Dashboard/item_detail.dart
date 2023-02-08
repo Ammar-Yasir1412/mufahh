@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
+import '../../Widgets/myDelete.dart';
 import '../../Widgets/myLargeButton.dart';
 import '../../Widgets/myTextField.dart';
 
@@ -156,15 +157,7 @@ class _item_detailState extends State<item_detail> {
                     ? Positioned(
                         top: 10,
                         right: 10,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              )),
-                        ))
+                        child: myDelete(context,"products",widget.data["Key"]))
                     : Container()
               ],
             ),
