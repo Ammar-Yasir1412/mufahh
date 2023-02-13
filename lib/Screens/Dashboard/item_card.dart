@@ -119,17 +119,28 @@ class _item_cardState extends State<item_card> {
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        // Text(
-                        //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
-                        //
-                        //   style: TextStyle(color: Colors.black),
-                        // ),
-                        // Text(
-                        //   "${widget.data["description"]}",
-                        //   overflow: TextOverflow.ellipsis,
-                        //
-                        //   style: TextStyle(color: Colors.black),
-                        // ),
+                        Text(
+                          '${widget.data["JoinDate"]}',                          overflow: TextOverflow.ellipsis,
+                        
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Rs: ${widget.data["price"]}",
+                              overflow: TextOverflow.ellipsis,
+                            
+                              style: TextStyle(color: Colors.black),
+                            ),
+                             Text(
+                              "(${widget.data["Bid"]!=null?widget.data["Bid"].length:0} bids)",
+                              overflow: TextOverflow.ellipsis,
+                            
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

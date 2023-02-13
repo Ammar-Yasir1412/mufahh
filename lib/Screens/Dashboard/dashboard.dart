@@ -197,9 +197,9 @@ class _dashboardState extends State<dashboard> {
                     return GridView.extent(
                       primary: false,
                       padding: const EdgeInsets.all(16),
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: (1 / 1.18),
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      childAspectRatio: (1 / 1.24),
                       shrinkWrap: true,
                       maxCrossAxisExtent: 200.0,
                       children:
