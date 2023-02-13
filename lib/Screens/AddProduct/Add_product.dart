@@ -54,7 +54,6 @@ class _Add_productState extends State<Add_product> {
     final String address = addressCtrl.text;
     final String price = priceCtrl.text;
 
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
       if (title != '' && description != '' && address != '' && URL != null) {
@@ -69,7 +68,7 @@ class _Add_productState extends State<Add_product> {
           "bidClose": false,
           "description": description,
           "address": address,
-                    "price": price,
+          "price": price,
           "PhoneNo": widget.UserData["PhoneNo"],
           "ownerName": widget.UserData["username"],
           "url": URL,
@@ -233,7 +232,8 @@ class _Add_productState extends State<Add_product> {
                     ? DecorationImage(
                         image: NetworkImage(URL), fit: BoxFit.cover)
                     : const DecorationImage(
-                        image: AssetImage("assets/Images/camera.jpg"), fit: BoxFit.cover),
+                        image: AssetImage("assets/Images/camera.jpg"),
+                        fit: BoxFit.cover),
                 shape: BoxShape.rectangle,
               ),
             ),
