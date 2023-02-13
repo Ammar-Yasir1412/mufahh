@@ -60,7 +60,7 @@ class _Add_productState extends State<Add_product> {
     try {
       if (title != '' && description != '' && address != '' && URL != null&& date != null) {
         DateTime now = DateTime.now();
-        String formattedDate = DateFormat('EEE d MMM').format(now);
+        String formattedDate = DateFormat('d MMM, yyyy').format(now);
         var key = now.microsecondsSinceEpoch.toString();
         await firestore.collection("products").doc(key).set({
           "Key": key,
