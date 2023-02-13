@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -178,47 +179,70 @@ class _Add_productState extends State<Add_product> {
           SizedBox(height: 10),
           myTextField(
             context,
-            "Add Product Title",
+            "Title",
             Icons.title,
             titleCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Add Product Description",
+            "Description",
             Icons.clear_all,
             descriptionCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Add Product Address",
+            "Address",
             Icons.location_city,
             addressCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Add bid start Price",
+            "Start Price",
             Icons.price_change,
             addressCtrl,
           ),
           SizedBox(height: 10),
-          Container(
-              height: 20,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Center(
-                child: const Text(
-                  "Add Product Photos",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              )),
+          // Container(
+          //     height: 20,
+          //     width: MediaQuery.of(context).size.width,
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //     ),
+          //     child: Center(
+          //       child: const Text(
+          //         "Add Product Photos",
+          //         style: TextStyle(
+          //             fontSize: 20,
+          //             fontWeight: FontWeight.bold,
+          //             color: Colors.black),
+          //       ),
+          //     )),
+          DateTimePicker(
+            type: DateTimePickerType.date,
+            dateMask: 'd MMM, yyyy',
+            initialValue: DateTime.now().toString(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2100),
+            icon: Icon(Icons.event),
+            // dateLabelText: 'Date',
+            // timeLabelText: "Hour",
+            selectableDayPredicate: (date) {
+              // Disable weekend days to select from the calendar
+              if (date.weekday == 6 || date.weekday == 7) {
+                return false;
+              }
+              return true;
+            },
+            onChanged: (val) => print(val),
+            validator: (val) {
+              print(val);
+              return null;
+            },
+            onSaved: (val) => print(val),
+          ),
           GestureDetector(
             onTap: () {
               upload_pic();

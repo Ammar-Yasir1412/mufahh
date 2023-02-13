@@ -14,7 +14,7 @@ Widget myTextField(context, title,icon, Ctrl,){
       decoration: InputDecoration(
         icon: Icon(
           icon,
-          color: Color.fromARGB(255, 105, 97, 97),
+          color: Color.fromARGB(255, 209, 52, 52),
         ),
         hintText: title,
         enabledBorder: InputBorder.none,
