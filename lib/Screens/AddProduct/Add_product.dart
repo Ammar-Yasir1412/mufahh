@@ -23,6 +23,7 @@ class _Add_productState extends State<Add_product> {
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descriptionCtrl = TextEditingController();
   final TextEditingController addressCtrl = TextEditingController();
+  final TextEditingController priceCtrl = TextEditingController();
   var categoriesValue = categories[0];
   bool looding = false;
   var URL = null;
@@ -51,6 +52,8 @@ class _Add_productState extends State<Add_product> {
     final String title = titleCtrl.text.trim();
     final String description = descriptionCtrl.text;
     final String address = addressCtrl.text;
+    final String price = priceCtrl.text;
+
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
@@ -66,6 +69,7 @@ class _Add_productState extends State<Add_product> {
           "bidClose": false,
           "description": description,
           "address": address,
+                    "price": price,
           "PhoneNo": widget.UserData["PhoneNo"],
           "ownerName": widget.UserData["username"],
           "url": URL,
@@ -191,6 +195,13 @@ class _Add_productState extends State<Add_product> {
             context,
             "Add Product Address",
             Icons.location_city,
+            addressCtrl,
+          ),
+          SizedBox(height: 10),
+          myTextField(
+            context,
+            "Add bid start Price",
+            Icons.price_change,
             addressCtrl,
           ),
           SizedBox(height: 10),

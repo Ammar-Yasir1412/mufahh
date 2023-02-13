@@ -14,14 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          useMaterial3: true
+          // useMaterial3: true
           // primarySwatch: Colors.red,
         ),
         home: FutureBuilder(
           // Initialize FlutterFire
           future: Firebase.initializeApp(),
           builder: (context, snapshot) {
-            // Check for errors
             if (snapshot.hasError) {
               return const Text("Some thing Went Wrong");
             }
