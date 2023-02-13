@@ -28,6 +28,7 @@ class _Add_productState extends State<Add_product> {
   var categoriesValue = categories[0];
   bool looding = false;
   var URL = null;
+  var date = null;
 
   upload_pic() async {
     final XFile? _image =
@@ -57,7 +58,7 @@ class _Add_productState extends State<Add_product> {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
-      if (title != '' && description != '' && address != '' && URL != null) {
+      if (title != '' && description != '' && address != '' && URL != null&& date != null) {
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('EEE d MMM').format(now);
         var key = now.microsecondsSinceEpoch.toString();
@@ -74,6 +75,7 @@ class _Add_productState extends State<Add_product> {
           "ownerName": widget.UserData["username"],
           "url": URL,
           "JoinDate": formattedDate,
+          "endDate": date,
         });
         // Navigator.of(context).pop();
         toast("Product Uploaded");
@@ -142,13 +144,13 @@ class _Add_productState extends State<Add_product> {
             width: MediaQuery.of(context).size.width * 0.9,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 216, 211, 211),
+              color: Color.fromARGB(255, 230, 228, 228),
             ),
             child: Row(
               children: [
                 const Icon(
                   Icons.category,
-                  color: Color.fromARGB(255, 105, 97, 97),
+                  color: Color.fromARGB(255, 209, 52, 52),
                 ),
                 SizedBox(width: 20),
                 Container(
@@ -220,29 +222,40 @@ class _Add_productState extends State<Add_product> {
           //             color: Colors.black),
           //       ),
           //     )),
-          DateTimePicker(
-            type: DateTimePickerType.date,
-            dateMask: 'd MMM, yyyy',
-            initialValue: DateTime.now().toString(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-            icon: Icon(Icons.event),
-            // dateLabelText: 'Date',
-            // timeLabelText: "Hour",
-            selectableDayPredicate: (date) {
-              // Disable weekend days to select from the calendar
-              if (date.weekday == 6 || date.weekday == 7) {
-                return false;
-              }
-              return true;
-            },
-            onChanged: (val) => print(val),
-            validator: (val) {
-              print(val);
-              return null;
-            },
-            onSaved: (val) => print(val),
+
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            width: MediaQuery.of(context).size.width * 0.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 230, 228, 228),
+            ),
+            child: DateTimePicker(
+              type: DateTimePickerType.date,
+              dateMask: 'd MMM, yyyy',
+              initialValue: DateTime.now().toString(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2100),
+             
+              decoration: const InputDecoration(
+                 icon: Icon(
+                Icons.event,
+                color: Color.fromARGB(255, 209, 52, 52),
+              ),
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+              onChanged: (val) => setState(() {
+                
+              }),
+              validator: (val) {
+                print(val);
+                return null;
+              },
+              onSaved: (val) => print(val),
+            ),
           ),
+
           GestureDetector(
             onTap: () {
               upload_pic();

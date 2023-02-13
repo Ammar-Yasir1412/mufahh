@@ -6,7 +6,7 @@ Widget myTextField(context, title,icon, Ctrl,){
     width: MediaQuery.of(context).size.width * 0.9,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      color: Color.fromARGB(255, 216, 211, 211),
+      color: Color.fromARGB(255, 230, 228, 228),
     ),
     child: TextField(
       controller: Ctrl,
