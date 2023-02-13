@@ -195,21 +195,21 @@ class _cart_detailState extends State<cart_detail> {
                     children: [
                       IconButton(
                           onPressed: whatsappsms,
-                          icon: Icon(
+                          icon: const Icon(
                             color: Colors.green,
-                            Icons.whatsapp,
+                            Icons.wechat,
                             size: 40,
                           )),
                       IconButton(
                           onPressed: call,
                           color: Colors.blue,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.phone,
                             size: 40,
                           )),
                       IconButton(
                           onPressed: simsms,
-                          icon: Icon(
+                          icon: const Icon(
                             color: appBarColor,
                             Icons.message,
                             size: 40,
