@@ -184,7 +184,7 @@ class _item_detailState extends State<item_detail> {
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
-                          "Post Now: ${widget.data["JoinDate"]}",
+                          "Live Now: ${widget.data["JoinDate"]}",
                           style: TextStyle(
                             fontSize: 17,
                           ),
