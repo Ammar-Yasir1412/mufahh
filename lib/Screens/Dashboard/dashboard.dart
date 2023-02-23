@@ -8,7 +8,6 @@ import 'package:mufahh/constants/style.dart';
 import '../../Widgets/myTextField.dart';
 import '../../constants/data.dart';
 import 'Searching.dart';
-import 'categoriesBtn.dart';
 import 'item_card.dart';
 
 class dashboard extends StatefulWidget {
@@ -57,230 +56,241 @@ class _dashboardState extends State<dashboard> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(12.0),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
-                  Widget>[
-            SizedBox(height: 30),
-            Stack(
-              children: [
-                myTextField(
-                  context,
-                  "Searching",
-                  Icons.search,
-                  searchCTRL,
-                ),
-                Positioned(
-                    right: 10,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Searching(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(height: 30),
+                Stack(
+                  children: [
+                    myTextField(
+                      context,
+                      "Searching",
+                      Icons.search,
+                      searchCTRL,
+                    ),
+                    Positioned(
+                        right: 10,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Searching(
                                         UserData: widget.UserData,
                                         searching: searchCTRL.text,
                                       )));
-                        },
-                        icon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: appBarColor,
-                        )))
-              ],
-            ),
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: appBarColor,
+                            )))
+                  ],
+                ),
 
-            const SizedBox(
-              height: 10,
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: _sliderStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Container(
-                      child: Column(
-                    children: [
-                      Text('Something went wrong'),
-                    ],
-                  ));
-                }
+                const SizedBox(
+                  height: 10,
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _sliderStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Container(
+                          child: Column(
+                        children: [
+                          Text('Something went wrong'),
+                        ],
+                      ));
+                    }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.data?.size == 0) {
-                  return Center(child: const Text("No data found"));
-                }
-                return CarouselSlider(
-                  options: CarouselOptions(height: 120.0),
-                  items: snapshot.data!.docs.map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(i["img"]),
-                              fit: BoxFit.fill,
-                            ),
-                            shape: BoxShape.rectangle,
-                          ),
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.data?.size == 0) {
+                      return Center(child: const Text("No data found"));
+                    }
+                    return CarouselSlider(
+                      options: CarouselOptions(height: 120.0),
+                      items: snapshot.data!.docs.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(i["img"]),
+                                  fit: BoxFit.fill,
+                                ),
+                                shape: BoxShape.rectangle,
+                              ),
+                            );
+                          },
                         );
-                      },
+                      }).toList(),
                     );
-                  }).toList(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "ALL CATEGORIES",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+                  },
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "ALL CATEGORIES",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,),
+                ),
+                Container(
+                    height: 90,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categories.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Categories(
+                                            UserData: widget.UserData,
+                                            categories: categories[index],
+                                          )));
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Center(child: Column(
+                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image(image: AssetImage(categoriesIcon[index].toString()),height: 40,),
+                                  Text(categories[index]),
+                                ],
+                              )),
+                            ),
+                          );
+                        })),
+                const Text(
+                  "Neared By",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,),
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _itemStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Column(
+                        children: const [
+                          Text('Something went wrong'),
+                        ],
+                      );
+                    }
 
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  categoriesBtn(context, "Art", "icon", widget.UserData),
-                  categoriesBtn(context, "Antiques", "icon", widget.UserData),
-                  categoriesBtn(context, "Electronics", "icon", widget.UserData),
-                  categoriesBtn(context, "Home Goods", "icon", widget.UserData),
-                  categoriesBtn(context, "Sports", "icon", widget.UserData),
-                  categoriesBtn(context, "Fashion", "icon", widget.UserData),
-                  categoriesBtn(context, "Vehicles", "icon", widget.UserData),
-                  categoriesBtn(context, "Jewelry", "icon", widget.UserData),
-                ],
-              ),
-            ),
-
-            const Text(
-              "Neared By",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: _itemStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Column(
-                    children: const [
-                      Text('Something went wrong'),
-                    ],
-                  );
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.data?.size == 0) {
-                  return const Center(child: Text("No data found"));
-                }
-                return GridView.extent(
-                  primary: false,
-                  padding: const EdgeInsets.all(16),
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  childAspectRatio: (1 / 1.24),
-                  shrinkWrap: true,
-                  maxCrossAxisExtent: 200.0,
-                  children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic> data =
-                        document.data()! as Map<String, dynamic>;
-                    return item_card(
-                      data: data,
-                      UserData: widget.UserData,
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.data?.size == 0) {
+                      return const Center(child: Text("No data found"));
+                    }
+                    return GridView.extent(
+                      primary: false,
+                      padding: const EdgeInsets.all(16),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: (1 / 1.18),
+                      shrinkWrap: true,
+                      maxCrossAxisExtent: 200.0,
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return item_card(
+                          data: data,
+                          UserData: widget.UserData,
+                        );
+                      }).toList(),
                     );
-                  }).toList(),
-                );
-              },
-            ),
-            // SizedBox(height: 10),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     Container(
-            //       margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
-            //       alignment: Alignment.center,
-            //       child: const Text(
-            //         "Categories ",
-            //         style: TextStyle(color: Colors.yellow),
-            //       ),
-            //     ),
-            //     GestureDetector(
-            //       onTap: (() => {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(builder: (context) => Cate()),
-            //             )
-            //           }),
-            //       child: Container(
-            //         margin: const EdgeInsets.only(top: 20, left: 20, right: 10),
-            //         alignment: Alignment.center,
-            //         child: const Text(
-            //           "See more >>",
-            //           style: TextStyle(color: Colors.yellow),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 15),
-            // GridView.builder(
-            //   shrinkWrap: true,
-            //   itemCount: images.length,
-            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //       crossAxisSpacing: 4.0,
-            //       mainAxisSpacing: 4.0),
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return Card(
-            //         child: GestureDetector(
-            //       onTap: () {
-            //         Navigator.push(context,
-            //             MaterialPageRoute(builder: (context) => Itm()));
-            //       },
-            //       child: Container(
-            //           decoration: BoxDecoration(
-            //             image: DecorationImage(
-            //               image: AssetImage(images[index]['picture']),
-            //               fit: BoxFit.fill,
-            //             ),
-            //             shape: BoxShape.rectangle,
-            //           ),
-            //           child: Column(
-            //             mainAxisAlignment: MainAxisAlignment.end,
-            //             children: [
-            //               Container(
-            //                 color: Colors.black.withOpacity(0.5),
-            //                 height: 25,
-            //                 child: Row(
-            //                   mainAxisAlignment: MainAxisAlignment.center,
-            //                   children: [
-            //                     Text(
-            //                       images[index]['name'],
-            //                       style: const TextStyle(color: Colors.white),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ),
-            //             ],
-            //           )),
-            //     ));
-            //   },
-            // ),
-          ]),
+                  },
+                ),
+                // SizedBox(height: 10),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     Container(
+                //       margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                //       alignment: Alignment.center,
+                //       child: const Text(
+                //         "Categories ",
+                //         style: TextStyle(color: Colors.yellow),
+                //       ),
+                //     ),
+                //     GestureDetector(
+                //       onTap: (() => {
+                //             Navigator.push(
+                //               context,
+                //               MaterialPageRoute(builder: (context) => Cate()),
+                //             )
+                //           }),
+                //       child: Container(
+                //         margin: const EdgeInsets.only(top: 20, left: 20, right: 10),
+                //         alignment: Alignment.center,
+                //         child: const Text(
+                //           "See more >>",
+                //           style: TextStyle(color: Colors.yellow),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // const SizedBox(height: 15),
+                // GridView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: images.length,
+                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 2,
+                //       crossAxisSpacing: 4.0,
+                //       mainAxisSpacing: 4.0),
+                //   itemBuilder: (BuildContext context, int index) {
+                //     return Card(
+                //         child: GestureDetector(
+                //       onTap: () {
+                //         Navigator.push(context,
+                //             MaterialPageRoute(builder: (context) => Itm()));
+                //       },
+                //       child: Container(
+                //           decoration: BoxDecoration(
+                //             image: DecorationImage(
+                //               image: AssetImage(images[index]['picture']),
+                //               fit: BoxFit.fill,
+                //             ),
+                //             shape: BoxShape.rectangle,
+                //           ),
+                //           child: Column(
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             children: [
+                //               Container(
+                //                 color: Colors.black.withOpacity(0.5),
+                //                 height: 25,
+                //                 child: Row(
+                //                   mainAxisAlignment: MainAxisAlignment.center,
+                //                   children: [
+                //                     Text(
+                //                       images[index]['name'],
+                //                       style: const TextStyle(color: Colors.white),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               ),
+                //             ],
+                //           )),
+                //     ));
+                //   },
+                // ),
+              ]),
         ),
       ),
     );

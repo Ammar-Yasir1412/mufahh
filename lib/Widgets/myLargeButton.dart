@@ -11,7 +11,7 @@ Widget myLargeButton(context, title, fun, loading) {
           height: 45,
           width: MediaQuery.of(context).size.width * 0.90,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
                   (Color.fromARGB(255, 99, 4, 4)),
                   (Color.fromARGB(255, 223, 24, 17)),

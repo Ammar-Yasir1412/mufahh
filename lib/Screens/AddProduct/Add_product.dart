@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +27,6 @@ class _Add_productState extends State<Add_product> {
   var categoriesValue = categories[0];
   bool looding = false;
   var URL = null;
-  var date = null;
 
   upload_pic() async {
     final XFile? _image =
@@ -56,11 +54,12 @@ class _Add_productState extends State<Add_product> {
     final String address = addressCtrl.text;
     final String price = priceCtrl.text;
 
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
-      if (title != '' && description != '' && address != '' && URL != null&& date != null) {
+      if (title != '' && description != '' && address != '' && URL != null) {
         DateTime now = DateTime.now();
-        String formattedDate = DateFormat('d MMM, yyyy').format(now);
+        String formattedDate = DateFormat('EEE d MMM').format(now);
         var key = now.microsecondsSinceEpoch.toString();
         await firestore.collection("products").doc(key).set({
           "Key": key,
@@ -70,12 +69,11 @@ class _Add_productState extends State<Add_product> {
           "bidClose": false,
           "description": description,
           "address": address,
-          "price": price,
+                    "price": price,
           "PhoneNo": widget.UserData["PhoneNo"],
           "ownerName": widget.UserData["username"],
           "url": URL,
           "JoinDate": formattedDate,
-          "endDate": date,
         });
         // Navigator.of(context).pop();
         toast("Product Uploaded");
@@ -144,13 +142,13 @@ class _Add_productState extends State<Add_product> {
             width: MediaQuery.of(context).size.width * 0.9,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(255, 230, 228, 228),
+              color: const Color.fromARGB(255, 216, 211, 211),
             ),
             child: Row(
               children: [
                 const Icon(
                   Icons.category,
-                  color: Color.fromARGB(255, 209, 52, 52),
+                  color: Color.fromARGB(255, 105, 97, 97),
                 ),
                 SizedBox(width: 20),
                 Container(
@@ -181,81 +179,47 @@ class _Add_productState extends State<Add_product> {
           SizedBox(height: 10),
           myTextField(
             context,
-            "Title",
+            "Add Product Title",
             Icons.title,
             titleCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Description",
+            "Add Product Description",
             Icons.clear_all,
             descriptionCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Address",
+            "Add Product Address",
             Icons.location_city,
             addressCtrl,
           ),
           SizedBox(height: 10),
           myTextField(
             context,
-            "Start Price",
+            "Add bid start Price",
             Icons.price_change,
             addressCtrl,
           ),
           SizedBox(height: 10),
-          // Container(
-          //     height: 20,
-          //     width: MediaQuery.of(context).size.width,
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //     ),
-          //     child: Center(
-          //       child: const Text(
-          //         "Add Product Photos",
-          //         style: TextStyle(
-          //             fontSize: 20,
-          //             fontWeight: FontWeight.bold,
-          //             color: Colors.black),
-          //       ),
-          //     )),
-
           Container(
-            padding: EdgeInsets.only(left: 10),
-            width: MediaQuery.of(context).size.width * 0.9,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(255, 230, 228, 228),
-            ),
-            child: DateTimePicker(
-              type: DateTimePickerType.date,
-              dateMask: 'd MMM, yyyy',
-              initialValue: DateTime.now().toString(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2100),
-             
-              decoration: const InputDecoration(
-                 icon: Icon(
-                Icons.event,
-                color: Color.fromARGB(255, 209, 52, 52),
+              height: 20,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.white,
               ),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-              ),
-              onChanged: (val) => setState(() {
-                
-              }),
-              validator: (val) {
-                print(val);
-                return null;
-              },
-              onSaved: (val) => print(val),
-            ),
-          ),
-
+              child: Center(
+                child: const Text(
+                  "Add Product Photos",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              )),
           GestureDetector(
             onTap: () {
               upload_pic();
@@ -269,8 +233,7 @@ class _Add_productState extends State<Add_product> {
                     ? DecorationImage(
                         image: NetworkImage(URL), fit: BoxFit.cover)
                     : const DecorationImage(
-                        image: AssetImage("assets/Images/camera.jpg"),
-                        fit: BoxFit.cover),
+                        image: AssetImage("assets/Images/camera.jpg"), fit: BoxFit.cover),
                 shape: BoxShape.rectangle,
               ),
             ),
