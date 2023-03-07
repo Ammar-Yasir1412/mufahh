@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mufahh/Screens/Profile/profileUpdate.dart';
 
 import '../../Widgets/myAppBar.dart';
 
@@ -86,17 +87,7 @@ class _AccountState extends State<Account> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Full Name',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.75)),
-                    SizedBox(height: 3),
-                    Text(
-                      widget.UserData["username"],
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    SizedBox(height: 20),
+                    textCard(context, "Full Name", "username", widget.UserData),
                     const Text('Email',
                         style: TextStyle(
                             fontSize: 17,
@@ -108,39 +99,9 @@ class _AccountState extends State<Account> {
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     SizedBox(height: 20),
-                    const Text('Phone',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.75)),
-                    const SizedBox(height: 3),
-                    Text(
-                      widget.UserData["PhoneNo"],
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    SizedBox(height: 20),
-                    Text('Address',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.75)),
-                    SizedBox(height: 3),
-                    Text(
-                      widget.UserData["address"],
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    SizedBox(height: 20),
-                    const Text('Gender',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.75)),
-                    SizedBox(height: 3),
-                    Text(
-                      widget.UserData["gender"],
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    const SizedBox(height: 20),
+                    textCard(context, "Phone", "PhoneNo", widget.UserData),
+                    textCard(context, "Address", "address", widget.UserData),
+                    textCard(context, "Gender", "gender", widget.UserData),
                     const Text('Join Date',
                         style: TextStyle(
                             fontSize: 17,
@@ -160,4 +121,39 @@ class _AccountState extends State<Account> {
           ])),
     );
   }
+}
+
+Widget textCard(context, title, key, UserData) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          Text(title,
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.75)),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => profileUpdate(
+                          title: title, nKey: key, UserData: UserData)),
+                );
+              },
+              child: Icon(
+                Icons.edit,
+                size: 16,
+              )),
+        ],
+      ),
+      Text(
+        UserData[key],
+        style: TextStyle(color: Colors.grey, fontSize: 15),
+      ),
+      SizedBox(height: 20),
+    ],
+  );
 }

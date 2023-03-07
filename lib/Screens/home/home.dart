@@ -27,6 +27,7 @@ class _homeState extends State<home> {
   late Widget CurrentScreen;
   @override
   Widget build(BuildContext context) {
+                        print("${widget.UserData}");
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 214, 15, 15),
 
