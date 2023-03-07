@@ -83,26 +83,60 @@ class _item_cardState extends State<item_card> {
                                     fit: BoxFit.fill,
                                   ),
                           )),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: InkWell(
-                          onTap: () {
-                            if (like == false) {
-                              addToCart(widget.data["Key"],
-                                  widget.data["Likes"], widget.UserData);
-                            } else {
-                              UnaddToCart(widget.data["Key"],
-                                  widget.data["Likes"], widget.UserData);
-                              setState(() {
-                                like = false;
-                              });
-                            }
-                          },
-                          child: Icon(
-                            like ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.red,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              color: Colors.red,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0),
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      "Live",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    SizedBox(width: 3),
+                                    Icon(
+                                      Icons.visibility,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 3),
+                                    Text(
+                                      "12",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                if (like == false) {
+                                  addToCart(widget.data["Key"],
+                                      widget.data["Likes"], widget.UserData);
+                                } else {
+                                  UnaddToCart(widget.data["Key"],
+                                      widget.data["Likes"], widget.UserData);
+                                  setState(() {
+                                    like = false;
+                                  });
+                                }
+                              },
+                              child: Icon(
+                                like ? Icons.favorite : Icons.favorite_border,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
