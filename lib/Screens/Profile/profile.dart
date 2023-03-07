@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mufahh/Screens/Profile/Account.dart';
 import 'package:mufahh/Screens/Profile/History.dart';
 import 'package:mufahh/Screens/Profile/myads.dart';
-import 'package:mufahh/Screens/Profile/Setings.dart';
-
 import '../../Widgets/myLargeButton.dart';
 import '../auth/Splash_Screen.dart';
 import 'Favourite/myFavourite.dart';
@@ -113,12 +111,7 @@ class _profileState extends State<profile> {
                               UserData: widget.UserData,
                             ),
                             "History"),
-                        textCard(
-                            context,
-                            Settings(
-                              UserData: widget.UserData,
-                            ),
-                            "Settings"),
+                  
                       ],
                     ),
                     SizedBox(
