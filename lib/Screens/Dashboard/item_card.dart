@@ -39,10 +39,12 @@ class _item_cardState extends State<item_card> {
       }
     }
     return InkWell(
-      onTap: () {
-        // _disable
-        //     ?
-        // snackbar("Sorry This is unavailable at this time"):
+      onTap: () async {
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        await firestore
+            .collection("products")
+            .doc(widget.data["Key"])
+            .update({"Live": widget.data["Live"] + 1});
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -94,23 +96,22 @@ class _item_cardState extends State<item_card> {
                                 padding: const EdgeInsets.only(
                                     left: 8.0, right: 8.0),
                                 child: Row(
-                                  children: const [
-                                    Text(
+                                  children: [
+                                    const Text(
                                       "Live",
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    SizedBox(width: 3),
-                                    Icon(
+                                    const SizedBox(width: 3),
+                                    const Icon(
                                       Icons.visibility,
                                       color: Colors.white,
                                     ),
-                                    SizedBox(width: 3),
+                                    const SizedBox(width: 3),
                                     Text(
-                                      "12",
-                                      style: TextStyle(
+                                      "${widget.data["Live"]}",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                       ),
                                     ),
