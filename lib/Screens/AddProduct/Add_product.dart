@@ -67,6 +67,7 @@ class _Add_productState extends State<Add_product> {
           "category": categoriesValue,
           "title": title,
           "bidClose": false,
+          "Live": 0,
           "description": description,
           "address": address,
                     "price": price,
