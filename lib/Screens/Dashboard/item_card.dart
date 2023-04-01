@@ -40,11 +40,6 @@ class _item_cardState extends State<item_card> {
     }
     return InkWell(
       onTap: () async {
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
-        await firestore
-            .collection("products")
-            .doc(widget.data["Key"])
-            .update({"Live": widget.data["Live"] + 1});
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -52,6 +47,11 @@ class _item_cardState extends State<item_card> {
                       data: widget.data,
                       UserData: widget.UserData,
                     )));
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        await firestore
+            .collection("products")
+            .doc(widget.data["Key"])
+            .update({"Live": widget.data["Live"] + 1});
       },
       child: Container(
         decoration: BoxDecoration(

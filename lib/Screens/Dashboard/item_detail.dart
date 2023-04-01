@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../Functions/toast.dart';
 import '../../Widgets/myDelete.dart';
 import '../../Widgets/myLargeButton.dart';
@@ -213,6 +214,10 @@ class _item_detailState extends State<item_detail> {
                       fontSize: 20,
                     ),
                   ),
+                  WebView(
+                    key: UniqueKey(),
+                    javascriptMode: JavascriptMode.unrestricted,
+                    initialUrl: "https://www.google.com/maps/@31.6939222,74.2417431,15z"),
                   _spacer(),
                   widget.data['Bid'] != null
                       ? Column(
