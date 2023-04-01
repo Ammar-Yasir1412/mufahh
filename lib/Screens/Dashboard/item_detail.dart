@@ -214,10 +214,15 @@ class _item_detailState extends State<item_detail> {
                       fontSize: 20,
                     ),
                   ),
-                  WebView(
-                    key: UniqueKey(),
-                    javascriptMode: JavascriptMode.unrestricted,
-                    initialUrl: "https://www.google.com/maps/@31.6939222,74.2417431,15z"),
+                  SizedBox(
+                    height: 500,
+                    width: 350,
+                    child: WebView(
+                      key: UniqueKey(),
+                      javascriptMode: JavascriptMode.unrestricted,
+                      initialUrl: "https://www.google.com/maps/@31.6939222,74.2417431,15z"),
+                  ),
+                 
                   _spacer(),
                   widget.data['Bid'] != null
                       ? Column(

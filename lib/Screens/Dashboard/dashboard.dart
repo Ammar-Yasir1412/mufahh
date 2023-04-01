@@ -60,32 +60,35 @@ class _dashboardState extends State<dashboard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 SizedBox(height: 30),
-                Stack(
-                  children: [
-                    myTextField(
-                      context,
-                      "Searching",
-                      Icons.search,
-                      searchCTRL,
-                    ),
-                    Positioned(
-                        right: 10,
-                        child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
+              
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromARGB(255, 216, 211, 211),
+                      ),
+                      child: TextField(
+                        controller: searchCTRL,
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (val) {
+                         Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Searching(
-                                        UserData: widget.UserData,
-                                        searching: searchCTRL.text,
-                                      )));
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: appBarColor,
-                            )))
-                  ],
-                ),
+                                            UserData: widget.UserData,
+                                            searching:val,
+                                          )));
+                        },
+                        cursorColor: Color(0xffF5591F),
+                        decoration: InputDecoration(
+                          hintText: "Searching",
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                
 
                 const SizedBox(
                   height: 10,
@@ -138,8 +141,9 @@ class _dashboardState extends State<dashboard> {
                 const Text(
                   "ALL CATEGORIES",
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Container(
                     height: 90,
@@ -160,10 +164,16 @@ class _dashboardState extends State<dashboard> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
-                              child: Center(child: Column(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              child: Center(
+                                  child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Image(image: AssetImage(categoriesIcon[index].toString()),height: 40,),
+                                  Image(
+                                    image: AssetImage(
+                                        categoriesIcon[index].toString()),
+                                    height: 40,
+                                  ),
                                   Text(categories[index]),
                                 ],
                               )),
@@ -173,8 +183,9 @@ class _dashboardState extends State<dashboard> {
                 const Text(
                   "Neared By",
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 StreamBuilder<QuerySnapshot>(
                   stream: _itemStream,
