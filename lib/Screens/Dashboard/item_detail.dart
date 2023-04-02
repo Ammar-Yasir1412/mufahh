@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../Functions/toast.dart';
 import '../../Widgets/myDelete.dart';
@@ -122,7 +124,21 @@ class _item_detailState extends State<item_detail> {
       looding = false;
     });
   }
+  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
+  late GoogleMapController _controller;
+  final Location _location = Location();
 
+  void _onMapCreated(GoogleMapController _cntlr)
+  {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen((l) { 
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          const CameraPosition(target: LatLng(31.573726, 73.4769454),zoom: 15),
+          ),
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var vwidth = MediaQuery.of(context).size.width;
@@ -214,14 +230,20 @@ class _item_detailState extends State<item_detail> {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(
-                    height: 500,
-                    width: 350,
-                    child: WebView(
-                        key: UniqueKey(),
-                        javascriptMode: JavascriptMode.unrestricted,
-                        initialUrl: "https://goo.gl/maps/ngnhJDxGSVs23aRP7"),
-                  ),
+                  // SizedBox(
+                  //   height: 500,
+                  //   width: 350,
+                  //   child: WebView(
+                  //       key: UniqueKey(),
+                  //       javascriptMode: JavascriptMode.unrestricted,
+                  //       initialUrl: "https://goo.gl/maps/ngnhJDxGSVs23aRP7"),
+                  // ),
+                  GoogleMap(
+              initialCameraPosition: CameraPosition(target: _initialcameraposition),
+              mapType: MapType.normal,
+              onMapCreated: _onMapCreated,
+              myLocationEnabled: true,
+            ),
                   _spacer(),
                   widget.data['Bid'] != null
                       ? Column(
