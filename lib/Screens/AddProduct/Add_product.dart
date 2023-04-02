@@ -38,7 +38,8 @@ class _Add_productState extends State<Add_product> {
   var long = 0.0;
   bool looding = false;
   var URL = null;
-
+  var bidStart;
+  var bidend;
   upload_pic() async {
     final XFile? _image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -87,6 +88,8 @@ class _Add_productState extends State<Add_product> {
           "lat": lat,
           "long": long,
           "JoinDate": formattedDate,
+          "bidStart": formattedDate,
+          "bidEnd": formattedDate,
         });
         // Navigator.of(context).pop();
         toast("Product Uploaded");
@@ -228,6 +231,55 @@ class _Add_productState extends State<Add_product> {
             priceCtrl,
           ),
           SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    showDatePicker(
+                        context: context,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(DateTime.now().year + 1, 1),
+                        initialDate: DateTime.now(),
+                        builder: (context, picker) {
+                          return Container(
+                            child: picker!,
+                          );
+                        }).then((selectedDate) {
+                      //TODO: handle selected date
+                      if (selectedDate != null) {
+                        setState(() {
+                          bidStart =
+                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                        });
+                      }
+                    });
+                  },
+                  child: Text("Bit Start Date ${bidStart ?? ""}")),
+              ElevatedButton(
+                  onPressed: () {
+                    showDatePicker(
+                        context: context,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(DateTime.now().year + 1, 1),
+                        initialDate: DateTime.now(),
+                        builder: (context, picker) {
+                          return Container(
+                            child: picker!,
+                          );
+                        }).then((selectedDate) {
+                      //TODO: handle selected date
+                      if (selectedDate != null) {
+                        setState(() {
+                          bidend =
+                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                        });
+                      }
+                    });
+                  },
+                  child: Text("Bid End Date ${bidend ?? ""}")),
+            ],
+          ),
           Container(
               height: 20,
               width: MediaQuery.of(context).size.width,

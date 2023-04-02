@@ -49,75 +49,60 @@ class _homeState extends State<home> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: Container(
-              height: 60,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: MaterialButton(
-                        minWidth: 50,
-                        onPressed: () {
-                          setState(() {
-                            CurrentScreen = dashboard(UserData: widget.UserData,);
-                            currentTab = 0;
-                          });
-                        },
-                        child: Icon(Icons.home,
-                            size: 32,
-                            color: currentTab == 0 ? Colors.red : Colors.grey),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 30.0),
-                      child: MaterialButton(
-                        minWidth: 60,
-                        onPressed: () {
-                          setState(() {
-                            CurrentScreen = notification(UserData: widget.UserData,);
-                            currentTab = 1;
-                          });
-                        },
-                        child: Icon(Icons.notifications,
-                            size: 32,
-                            color: currentTab == 1 ? Colors.red : Colors.grey),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30.0),
-                      child: MaterialButton(
-                        minWidth: 60,
-                        onPressed: () {
-                          setState(() {
-                            CurrentScreen = Cart(UserData: widget.UserData,);
-                            currentTab = 2;
-                          });
-                        },
-                        child: Icon(Icons.shopping_cart,
-                            size: 32,
-                            color: currentTab == 2 ? Colors.red : Colors.grey),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: MaterialButton(
-                        minWidth: 60,
-                        onPressed: () {
-                          setState(() {
-                            CurrentScreen = profile(UserData: widget.UserData,);
-                            currentTab = 3;
-                          });
-                        },
-                        child: Icon(Icons.person,
-                            size: 32,
-                            color: currentTab == 3 ? Colors.red : Colors.grey),
-                      ),
-                    ),
-                  ])),
-        ),
+        child: Container(
+            height: 60,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: 50,
+                    onPressed: () {
+                      setState(() {
+                        CurrentScreen = dashboard(UserData: widget.UserData,);
+                        currentTab = 0;
+                      });
+                    },
+                    child: Icon(Icons.home,
+                        size: 32,
+                        color: currentTab == 0 ? Colors.red : Colors.grey),
+                  ),
+                  MaterialButton(
+                    minWidth: 60,
+                    onPressed: () {
+                      setState(() {
+                        CurrentScreen = notification(UserData: widget.UserData,);
+                        currentTab = 1;
+                      });
+                    },
+                    child: Icon(Icons.notifications,
+                        size: 32,
+                        color: currentTab == 1 ? Colors.red : Colors.grey),
+                  ),
+                  MaterialButton(
+                    minWidth: 60,
+                    onPressed: () {
+                      setState(() {
+                        CurrentScreen = Cart(UserData: widget.UserData,);
+                        currentTab = 2;
+                      });
+                    },
+                    child: Icon(Icons.shopping_cart,
+                        size: 32,
+                        color: currentTab == 2 ? Colors.red : Colors.grey),
+                  ),
+                  MaterialButton(
+                    minWidth: 60,
+                    onPressed: () {
+                      setState(() {
+                        CurrentScreen = profile(UserData: widget.UserData,);
+                        currentTab = 3;
+                      });
+                    },
+                    child: Icon(Icons.person,
+                        size: 32,
+                        color: currentTab == 3 ? Colors.red : Colors.grey),
+                  ),
+                ])),
       ),
     );
   }
