@@ -220,7 +220,7 @@ class _item_detailState extends State<item_detail> {
                     child: WebView(
                       key: UniqueKey(),
                       javascriptMode: JavascriptMode.unrestricted,
-                      initialUrl: "https://www.google.com/maps/@31.6939222,74.2417431,15z"),
+                      initialUrl: "https://goo.gl/maps/ngnhJDxGSVs23aRP7"),
                   ),
                  
                   _spacer(),
