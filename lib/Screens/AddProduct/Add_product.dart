@@ -40,6 +40,8 @@ class _Add_productState extends State<Add_product> {
   var URL = null;
   var bidStart;
   var bidEnd;
+  var bidStartDate;
+  var bidEndDate;
   upload_pic() async {
     final XFile? _image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -247,13 +249,14 @@ class _Add_productState extends State<Add_product> {
                       //TODO: handle selected date
                       if (selectedDate != null) {
                         setState(() {
-                          bidStart = selectedDate.microsecondsSinceEpoch;
-                          // "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                          bidStart = selectedDate;
+                          bidStartDate =
+                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
                         });
                       }
                     });
                   },
-                  child: Text("Bit Start Date ${bidStart ?? ""}")),
+                  child: Text("Bit Start Date ${bidStartDate ?? ""}")),
               ElevatedButton(
                   onPressed: () {
                     showDatePicker(
@@ -270,12 +273,13 @@ class _Add_productState extends State<Add_product> {
                       if (selectedDate != null) {
                         setState(() {
                           bidEnd = selectedDate.microsecondsSinceEpoch;
-                          // "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                          bidEndDate =
+                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
                         });
                       }
                     });
                   },
-                  child: Text("Bid End Date ${bidEnd ?? ""}")),
+                  child: Text("Bid End Date ${bidEndDate ?? ""}")),
             ],
           ),
           Container(
