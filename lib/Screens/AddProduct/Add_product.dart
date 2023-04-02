@@ -39,7 +39,7 @@ class _Add_productState extends State<Add_product> {
   bool looding = false;
   var URL = null;
   var bidStart;
-  var bidend;
+  var bidEnd;
   upload_pic() async {
     final XFile? _image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -70,7 +70,6 @@ class _Add_productState extends State<Add_product> {
     try {
       if (title != '' && description != '' && address != '' && URL != null) {
         DateTime now = DateTime.now();
-        String formattedDate = DateFormat('EEE d MMM').format(now);
         var key = now.microsecondsSinceEpoch.toString();
         await firestore.collection("products").doc(key).set({
           "Key": key,
@@ -87,9 +86,8 @@ class _Add_productState extends State<Add_product> {
           "url": URL,
           "lat": lat,
           "long": long,
-          "JoinDate": formattedDate,
-          "bidStart": formattedDate,
-          "bidEnd": formattedDate,
+          "bidStart": bidStart,
+          "bidEnd": bidEnd,
         });
         // Navigator.of(context).pop();
         toast("Product Uploaded");
@@ -249,8 +247,8 @@ class _Add_productState extends State<Add_product> {
                       //TODO: handle selected date
                       if (selectedDate != null) {
                         setState(() {
-                          bidStart =
-                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                          bidStart = selectedDate.microsecondsSinceEpoch;
+                          // "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
                         });
                       }
                     });
@@ -271,13 +269,13 @@ class _Add_productState extends State<Add_product> {
                       //TODO: handle selected date
                       if (selectedDate != null) {
                         setState(() {
-                          bidend =
-                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                          bidEnd = selectedDate.microsecondsSinceEpoch;
+                          // "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
                         });
                       }
                     });
                   },
-                  child: Text("Bid End Date ${bidend ?? ""}")),
+                  child: Text("Bid End Date ${bidEnd ?? ""}")),
             ],
           ),
           Container(
