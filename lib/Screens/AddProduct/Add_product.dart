@@ -249,7 +249,7 @@ class _Add_productState extends State<Add_product> {
                       //TODO: handle selected date
                       if (selectedDate != null) {
                         setState(() {
-                          bidStart = selectedDate;
+                          bidStart = selectedDate.microsecondsSinceEpoch;
                           bidStartDate =
                               "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
                         });

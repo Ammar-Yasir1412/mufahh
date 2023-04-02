@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-dateConverte(_date) {
+dateConverte(_date,Ago) {
   var now = DateTime.now();
   var format = DateFormat('HH:mm a');
   var Dateformat = DateFormat('yyyy-MM-dd');
@@ -11,13 +11,13 @@ dateConverte(_date) {
   //     "====>${diff.inSeconds}==${diff.inMinutes}==${diff.inHours}==${diff.inDays}");
 
   if (diff.inSeconds > 0 && diff.inMinutes == 0) {
-    return time = diff.inSeconds.toString() + ' sec Ago';
+    return time = diff.inSeconds.toString() + ' sec $Ago';
   } else if (diff.inMinutes > 0 && diff.inHours == 0) {
-    return time = diff.inMinutes.toString() + ' min Ago';
+    return time = diff.inMinutes.toString() + ' min $Ago';
   } else if (diff.inHours > 0 && diff.inDays == 0) {
-    return time = diff.inHours.toString() + ' hr Ago';
+    return time = diff.inHours.toString() + ' hr $Ago';
   } else if (diff.inDays < 10) {
-    return time = diff.inDays.toString() + ' day Ago';
+    return time = diff.inDays.toString() + ' day $Ago';
   } else {
     return time = Dateformat.format(date).toString();
   }

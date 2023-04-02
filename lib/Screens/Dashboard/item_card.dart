@@ -38,6 +38,8 @@ class _item_cardState extends State<item_card> {
         // print('===========Like or unlike=============>${Like}');
       }
     }
+    var now = DateTime.now().microsecondsSinceEpoch;
+    print(now.toString());
     return InkWell(
       onTap: () async {
         Navigator.push(
@@ -47,11 +49,13 @@ class _item_cardState extends State<item_card> {
                       data: widget.data,
                       UserData: widget.UserData,
                     )));
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
-        await firestore
-            .collection("products")
-            .doc(widget.data["Key"])
-            .update({"Live": widget.data["Live"] + 1});
+        if (now > widget.data["bidStart"]) {
+          FirebaseFirestore firestore = FirebaseFirestore.instance;
+          await firestore
+              .collection("products")
+              .doc(widget.data["Key"])
+              .update({"Live": widget.data["Live"] + 1});
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -90,35 +94,37 @@ class _item_cardState extends State<item_card> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              color: Colors.red,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0),
-                                child: Row(
-                                  children: [
-                                    const Text(
-                                      "Live",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(width: 3),
-                                    const Icon(
-                                      Icons.visibility,
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(width: 3),
-                                    Text(
-                                      "${widget.data["Live"]}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                            now > widget.data["bidStart"]
+                                ? Container(
+                                    color: Colors.red,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Live",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(width: 3),
+                                          const Icon(
+                                            Icons.visibility,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(width: 3),
+                                          Text(
+                                            "${widget.data["Live"]}",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  )
+                                : Container(),
                             InkWell(
                               onTap: () {
                                 if (like == false) {

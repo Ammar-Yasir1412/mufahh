@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../Functions/toast.dart';
+import '../../Widgets/dateConverte.dart';
 import '../../Widgets/myDelete.dart';
 import '../../Widgets/myLargeButton.dart';
 import '../../Widgets/myTextField.dart';
@@ -187,7 +188,7 @@ class _item_detailState extends State<item_detail> {
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
-                          "Live Now: ${widget.data["JoinDate"]}",
+                          "Live Now: ${dateConverte(widget.data["bidEnd"],"Left")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
