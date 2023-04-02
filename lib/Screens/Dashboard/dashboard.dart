@@ -62,11 +62,11 @@ class _dashboardState extends State<dashboard> {
                 SizedBox(height: 30),
               
                     Container(
-                      padding: EdgeInsets.only(left: 10),
+                      // padding: EdgeInsets.only(left: 10),
                       width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 216, 211, 211),
+                        color: Color.fromARGB(255, 221, 219, 219),
                       ),
                       child: TextField(
                         controller: searchCTRL,
@@ -81,8 +81,9 @@ class _dashboardState extends State<dashboard> {
                                           )));
                         },
                         cursorColor: Color(0xffF5591F),
-                        decoration: InputDecoration(
-                          hintText: "Searching",
+                        decoration: const InputDecoration(
+                          labelText: "Searching",
+                          prefixIcon: Icon(Icons.search),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                         ),

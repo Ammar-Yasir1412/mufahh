@@ -142,9 +142,9 @@ class _item_detailState extends State<item_detail> {
             ),
           ),
         ),
-        title: Text(
+        title: const Text(
           "Detail",
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
@@ -186,7 +186,7 @@ class _item_detailState extends State<item_detail> {
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
                           "Live Now: ${widget.data["JoinDate"]}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                           ),
                         ),
@@ -218,11 +218,10 @@ class _item_detailState extends State<item_detail> {
                     height: 500,
                     width: 350,
                     child: WebView(
-                      key: UniqueKey(),
-                      javascriptMode: JavascriptMode.unrestricted,
-                      initialUrl: "https://goo.gl/maps/ngnhJDxGSVs23aRP7"),
+                        key: UniqueKey(),
+                        javascriptMode: JavascriptMode.unrestricted,
+                        initialUrl: "https://goo.gl/maps/ngnhJDxGSVs23aRP7"),
                   ),
-                 
                   _spacer(),
                   widget.data['Bid'] != null
                       ? Column(
