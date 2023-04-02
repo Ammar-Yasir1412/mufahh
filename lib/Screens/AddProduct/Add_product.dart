@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../Functions/toast.dart';
 import '../../Widgets/myLargeButton.dart';
 import '../../Widgets/myTextField.dart';
@@ -20,11 +22,20 @@ class Add_product extends StatefulWidget {
 }
 
 class _Add_productState extends State<Add_product> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getLocation();
+    super.initState();
+  }
+
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descriptionCtrl = TextEditingController();
   final TextEditingController addressCtrl = TextEditingController();
   final TextEditingController priceCtrl = TextEditingController();
   var categoriesValue = categories[0];
+  var lat = 0.0;
+  var long = 0.0;
   bool looding = false;
   var URL = null;
 
@@ -54,7 +65,6 @@ class _Add_productState extends State<Add_product> {
     final String address = addressCtrl.text;
     final String price = priceCtrl.text;
 
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
       if (title != '' && description != '' && address != '' && URL != null) {
@@ -70,10 +80,12 @@ class _Add_productState extends State<Add_product> {
           "Live": 0,
           "description": description,
           "address": address,
-                    "price": price,
+          "price": price,
           "PhoneNo": widget.UserData["PhoneNo"],
           "ownerName": widget.UserData["username"],
           "url": URL,
+          "lat": lat,
+          "long": long,
           "JoinDate": formattedDate,
         });
         // Navigator.of(context).pop();
@@ -87,6 +99,16 @@ class _Add_productState extends State<Add_product> {
     setState(() {
       looding = false;
     });
+  }
+
+  _getLocation() async {
+    await Permission.location.request();
+
+    var geolocationStatus = await Geolocator.checkPermission();
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    lat = position.latitude;
+    long = position.longitude;
   }
 
   @override
@@ -203,7 +225,7 @@ class _Add_productState extends State<Add_product> {
             context,
             "Add bid start Price",
             Icons.price_change,
-            addressCtrl,
+            priceCtrl,
           ),
           SizedBox(height: 10),
           Container(
@@ -234,7 +256,8 @@ class _Add_productState extends State<Add_product> {
                     ? DecorationImage(
                         image: NetworkImage(URL), fit: BoxFit.cover)
                     : const DecorationImage(
-                        image: AssetImage("assets/Images/camera.jpg"), fit: BoxFit.cover),
+                        image: AssetImage("assets/Images/camera.jpg"),
+                        fit: BoxFit.cover),
                 shape: BoxShape.rectangle,
               ),
             ),

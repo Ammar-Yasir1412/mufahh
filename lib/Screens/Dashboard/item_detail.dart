@@ -223,7 +223,7 @@ class _item_detailState extends State<item_detail> {
                         key: UniqueKey(),
                         javascriptMode: JavascriptMode.unrestricted,
                         initialUrl:
-                            "https://www.google.com/maps/@31.573726,73.4769454,17z"),
+                            "https://www.google.com/maps/@${widget.data["lat"]},${widget.data["long"]}"),
                   ),
                   _spacer(),
                   widget.data['Bid'] != null
