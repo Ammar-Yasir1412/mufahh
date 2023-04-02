@@ -41,7 +41,7 @@ class _dashboardState extends State<dashboard> {
   var _chosenValue = '';
   final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
       .collection('products')
-      // .orderBy('Date', descending: true)
+      // .orderBy('Key', descending: true)
       .where('bidClose', isEqualTo: false)
       // .limitToLast(2)l
       .snapshots();

@@ -125,6 +125,7 @@ class _item_detailState extends State<item_detail> {
       looding = false;
     });
   }
+    var now = DateTime.now().microsecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +189,9 @@ class _item_detailState extends State<item_detail> {
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
-                          "Live Now: ${dateConverte(widget.data["bidEnd"],"Left")}",
+                          widget.data["bidEnd"]<now?
+                          "Live After: ${dateConverte(widget.data["bidStart"],"Left")}":
+                          "Live Now: ${dateConverte(widget.data["bidEnd"],"Ago")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
@@ -261,7 +264,7 @@ class _item_detailState extends State<item_detail> {
                       child: widget.data["UID"] == widget.UserData["UID"]
                           ? myLargeButton(
                               context, "Close Bid", closeBid, looding)
-                          : myLargeButton(context, "Bid Now", addBid, looding)),
+                          : widget.data["bidEnd"]>now? myLargeButton(context, "Bid Now", addBid, looding):null),
                 ],
               ),
             ),
