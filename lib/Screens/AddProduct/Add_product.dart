@@ -231,16 +231,13 @@ class _Add_productState extends State<Add_product> {
             priceCtrl,
           ),
           SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
+           ElevatedButton(
                   onPressed: () {
-                    showDatePicker(
+                    showDateRangePicker(
                         context: context,
                         firstDate: DateTime.now(),
                         lastDate: DateTime(DateTime.now().year + 1, 1),
-                        initialDate: DateTime.now(),
+                        // initialDate: DateTime.now(),
                         builder: (context, picker) {
                           return Container(
                             child: picker!,
@@ -249,39 +246,17 @@ class _Add_productState extends State<Add_product> {
                       //TODO: handle selected date
                       if (selectedDate != null) {
                         setState(() {
-                          bidStart = selectedDate.microsecondsSinceEpoch;
+                          bidStart = selectedDate.start.microsecondsSinceEpoch;
+                          bidEnd = selectedDate.end.microsecondsSinceEpoch;
                           bidStartDate =
-                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+                              "${selectedDate.start.day}/${selectedDate.start.month}/${selectedDate.start.year}";bidEndDate =
+                              "${selectedDate.end.day}/${selectedDate.end.month}/${selectedDate.end.year}";
                         });
                       }
                     });
                   },
-                  child: Text("Bit Start Date ${bidStartDate ?? ""}")),
-              ElevatedButton(
-                  onPressed: () {
-                    showDatePicker(
-                        context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 1, 1),
-                        initialDate: DateTime.now(),
-                        builder: (context, picker) {
-                          return Container(
-                            child: picker!,
-                          );
-                        }).then((selectedDate) {
-                      //TODO: handle selected date
-                      if (selectedDate != null) {
-                        setState(() {
-                          bidEnd = selectedDate.microsecondsSinceEpoch;
-                          bidEndDate =
-                              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
-                        });
-                      }
-                    });
-                  },
-                  child: Text("Bid End Date ${bidEndDate ?? ""}")),
-            ],
-          ),
+                  child: Text("${bidStartDate ?? "Bit Start Date"} To ${bidEndDate ?? "Bit End Date"}")),
+           
           Container(
               height: 20,
               width: MediaQuery.of(context).size.width,

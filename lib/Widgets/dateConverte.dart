@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 dateConverte(_date,Ago) {
   var now = DateTime.now();
   var format = DateFormat('HH:mm a');
-  var Dateformat = DateFormat('yyyy-MM-dd');
+  var Dateformat = DateFormat('dd-MM-yyyy');
   var date = DateTime.fromMicrosecondsSinceEpoch(_date);
   var diff = date.difference(now).abs();
   var time = '';

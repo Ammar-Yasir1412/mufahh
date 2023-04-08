@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../Functions/addToCart.dart';
+import '../../Widgets/dateConverte.dart';
 import '../../Widgets/drop_button.dart';
 import 'item_detail.dart';
 
@@ -159,6 +160,15 @@ class _item_cardState extends State<item_card> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          // "Last Bid: ${widget.data["lastBid"]}",
+                          widget.data["bidEnd"]<now?
+                          "Live After: ${dateConverte(widget.data["bidStart"],"Left")}":
+                          "Live Now: ${dateConverte(widget.data["bidEnd"],"Ago")}",
+                          style: const TextStyle(
+                            fontSize: 17,
+                          ),
                         ),
                         // Text(
                         //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
