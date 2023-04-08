@@ -70,7 +70,7 @@ class _Add_productState extends State<Add_product> {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
-      if (title != '' && description != '' && address != '' && URL != null) {
+      if (title != '' && description != '' && address != '' &&price != '' && URL != null) {
         DateTime now = DateTime.now();
         var key = now.microsecondsSinceEpoch.toString();
         await firestore.collection("products").doc(key).set({

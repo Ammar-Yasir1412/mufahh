@@ -189,7 +189,7 @@ class _item_detailState extends State<item_detail> {
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
-                          widget.data["bidEnd"]<now?
+                          widget.data["bidEnd"]>now?
                           "Live After: ${dateConverte(widget.data["bidStart"],"Left")}":
                           "Live Now: ${dateConverte(widget.data["bidEnd"],"Ago")}",
                           style: const TextStyle(
