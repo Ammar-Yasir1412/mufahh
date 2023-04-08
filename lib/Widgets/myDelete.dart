@@ -18,8 +18,10 @@ Widget myDelete(context, collection, doc) {
                 .collection(collection)
                 .doc(doc)
                 .delete()
-                .then((value) => toast("Delete successfully"))
-                .catchError((onError) => toast(onError.toString()));
+                .then((value) {
+              toast("Delete successfully");
+              Navigator.pop(context);
+            }).catchError((onError) => toast(onError.toString()));
           }
 
           AlertDialog alert = AlertDialog(
