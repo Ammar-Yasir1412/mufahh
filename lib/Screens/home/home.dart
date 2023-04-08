@@ -32,21 +32,21 @@ class _homeState extends State<home> {
       // backgroundColor: Color.fromARGB(255, 214, 15, 15),
 
       body: PageStorage(bucket: bucket, child: CurrentScreen),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            CurrentScreen = Add_product(UserData: widget.UserData,);
-            currentTab = 5;
-          });
-        },
-        child: Icon(
-          Icons.add,
-          size: 32,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.red,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     setState(() {
+      //       CurrentScreen = Add_product(UserData: widget.UserData,);
+      //       currentTab = 5;
+      //     });
+      //   },
+      //   child: Icon(
+      //     Icons.add,
+      //     size: 32,
+      //     color: Colors.white,
+      //   ),
+      //   backgroundColor: Colors.red,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(

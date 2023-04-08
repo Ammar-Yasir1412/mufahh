@@ -7,6 +7,7 @@ import 'package:mufahh/constants/style.dart';
 
 import '../../Widgets/myTextField.dart';
 import '../../constants/data.dart';
+import '../AddProduct/Add_product.dart';
 import 'Searching.dart';
 import 'item_card.dart';
 
@@ -53,6 +54,22 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromARGB(226, 75, 41, 41),
+            floatingActionButton: FloatingActionButton(
+        onPressed: () {
+           Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Add_product(UserData: widget.UserData,)),
+        );
+        },
+        child: Icon(
+          Icons.add,
+          size: 32,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.red,
+      ),
+    
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(12.0),
