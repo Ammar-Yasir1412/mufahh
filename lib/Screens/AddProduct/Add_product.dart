@@ -91,7 +91,7 @@ class _Add_productState extends State<Add_product> {
           "bidStart": bidStart,
           "bidEnd": bidEnd,
         });
-        // Navigator.of(context).pop();
+        Navigator.of(context).pop();
         toast("Product Uploaded");
       } else {
         toast("Please fill all text field");
