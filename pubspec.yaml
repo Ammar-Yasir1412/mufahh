@@ -28,12 +28,13 @@ dependencies:
   date_time_picker: ^2.1.0
   fluttertoast: ^8.1.2
   share_plus: ^4.0.10+1
-  webview_flutter_plus: ^0.3.0+2
-  geocoder: ^0.2.1
+  # webview_flutter_plus: ^0.3.0+2
+  url_launcher: ^6.1.10
+  # geocoder: ^0.2.1
   geolocator: ^9.0.2
   permission_handler: ^10.2.0
-  location: ^4.4.0
-  google_maps_flutter: ^2.2.5
+  # location: ^4.4.0
+  # google_maps_flutter: ^2.2.5
   # webview_flutter: ^4.0.7
 
 dev_dependencies:

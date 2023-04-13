@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:location/location.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../Functions/toast.dart';
 import '../../Widgets/dateConverte.dart';
 import '../../Widgets/myDelete.dart';
@@ -125,7 +123,8 @@ class _item_detailState extends State<item_detail> {
       looding = false;
     });
   }
-    var now = DateTime.now().microsecondsSinceEpoch;
+
+  var now = DateTime.now().microsecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
@@ -189,9 +188,9 @@ class _item_detailState extends State<item_detail> {
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Text(
                           // "Last Bid: ${widget.data["lastBid"]}",
-                          widget.data["bidEnd"]>now?
-                          "Live After: ${dateConverte(widget.data["bidStart"],"Left")}":
-                          "Live Now: ${dateConverte(widget.data["bidEnd"],"Ago")}",
+                          widget.data["bidEnd"] > now
+                              ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
+                              : "Live Now: ${dateConverte(widget.data["bidEnd"], "Ago")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
@@ -200,11 +199,25 @@ class _item_detailState extends State<item_detail> {
                     ],
                   ),
                   _spacer(),
-                  Text(
-                    "Type: ${widget.data["category"]}",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Type: ${widget.data["category"]}",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            final Uri _url = Uri.parse(
+                                "https://www.google.com/maps/@${widget.data["lat"]},${widget.data["long"]}");
+                            if (!await launchUrl(_url)) {
+                              throw Exception('Could not launch $_url');
+                            }
+                          },
+                          icon: Icon(Icons.location_city))
+                    ],
                   ),
                   _spacer(),
                   Text(
@@ -219,15 +232,6 @@ class _item_detailState extends State<item_detail> {
                     style: TextStyle(
                       fontSize: 20,
                     ),
-                  ),
-                  SizedBox(
-                    height: 500,
-                    width: 350,
-                    child: WebView(
-                        key: UniqueKey(),
-                        javascriptMode: JavascriptMode.unrestricted,
-                        initialUrl:
-                            "https://www.google.com/maps/@${widget.data["lat"]},${widget.data["long"]}"),
                   ),
                   _spacer(),
                   widget.data['Bid'] != null
@@ -264,7 +268,10 @@ class _item_detailState extends State<item_detail> {
                       child: widget.data["UID"] == widget.UserData["UID"]
                           ? myLargeButton(
                               context, "Close Bid", closeBid, looding)
-                          : widget.data["bidEnd"]>now? myLargeButton(context, "Bid Now", addBid, looding):null),
+                          : widget.data["bidEnd"] > now
+                              ? myLargeButton(
+                                  context, "Bid Now", addBid, looding)
+                              : null),
                 ],
               ),
             ),
