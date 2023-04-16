@@ -17,7 +17,6 @@ class _userScreenState extends State<userScreen> {
         // .where('UID', isEqualTo: widget.UserData["UID"])
         // .limitToLast(2)l
         .snapshots();
-    var userAction;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -120,36 +119,40 @@ class _userScreenState extends State<userScreen> {
                                   ),
                                 ],
                               ),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    DropdownButton<String>(
-                                      // Initial Value
-                                      value: userAction,
-
-                                      // Down Arrow Icon
-                                      icon:
-                                          const Icon(Icons.keyboard_arrow_down),
-
-                                      // Array list of items
-                                      items: ["Disable", "Delete"]
-                                          .map((String items) {
-                                        return DropdownMenuItem(
-                                          value: items,
-                                          child: Text(items),
-                                        );
-                                      }).toList(),
-                                      // After selecting the desired option,it will
-                                      // change button value to selected value
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          userAction = newValue!;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
+                              PopupMenuButton<String>(
+                                onSelected: (value) {
+                                  // Handle the selection of a menu item
+                                },
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    value: 'item1',
+                                    child: Text('Rate us'),
+                                    onTap: () {},
+                                  ),
+                                  PopupMenuItem(
+                                    value: 'item2',
+                                    child: Text('About us'),
+                                    onTap: () {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) => abouteScreen()),
+                                      // );
+                                    },
+                                  ),
+                                  // ignore: prefer_const_constructors
+                                  PopupMenuItem(
+                                    value: 'item3',
+                                    child: const Text('Contact us'),
+                                    onTap: () {
+                                      //  Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) => abouteScreen()),
+                                      // );
+                                    },
+                                  ),
+                                ],
                               ),
                             ],
                           ),
