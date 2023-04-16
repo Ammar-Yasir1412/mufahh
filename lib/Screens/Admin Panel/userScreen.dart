@@ -126,30 +126,27 @@ class _userScreenState extends State<userScreen> {
                                 itemBuilder: (context) => [
                                   PopupMenuItem(
                                     value: 'item1',
-                                    child: Text('Rate us'),
-                                    onTap: () {},
+                                    child: Text(data["user"] != "Disable"
+                                        ? 'Disable'
+                                        : 'Disable'),
+                                    onTap: () async {
+                                      var type = data["user"] != "Disable"
+                                          ? 'Disable'
+                                          : 'Enable';
+                                      await FirebaseFirestore.instance
+                                          .collection("users")
+                                          .doc(data["UID"])
+                                          .update({"user": type});
+                                    },
                                   ),
                                   PopupMenuItem(
                                     value: 'item2',
-                                    child: Text('About us'),
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) => abouteScreen()),
-                                      // );
-                                    },
-                                  ),
-                                  // ignore: prefer_const_constructors
-                                  PopupMenuItem(
-                                    value: 'item3',
-                                    child: const Text('Contact us'),
-                                    onTap: () {
-                                      //  Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) => abouteScreen()),
-                                      // );
+                                    child: Text('Delete'),
+                                    onTap: () async {
+                                      await FirebaseFirestore.instance
+                                          .collection("users")
+                                          .doc(data["UID"])
+                                          .update({"user": "delete"});
                                     },
                                   ),
                                 ],
