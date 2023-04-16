@@ -3,9 +3,8 @@ import 'package:mufahh/Screens/Admin%20Panel/producteScreen.dart';
 import 'package:mufahh/Screens/Admin%20Panel/userScreen.dart';
 
 class bottumNavAdmin extends StatefulWidget {
-  final Map UserData;
 
-  const bottumNavAdmin({super.key, required this.UserData});
+  const bottumNavAdmin({super.key,});
   @override
   _bottumNavAdminState createState() => _bottumNavAdminState();
 }
@@ -23,7 +22,6 @@ class _bottumNavAdminState extends State<bottumNavAdmin> {
   late Widget CurrentScreen;
   @override
   Widget build(BuildContext context) {
-    print("${widget.UserData}");
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 214, 15, 15),
 
@@ -55,7 +53,7 @@ class _bottumNavAdminState extends State<bottumNavAdmin> {
                         currentTab = 1;
                       });
                     },
-                    child: Icon(Icons.notifications,
+                    child: Icon(Icons.production_quantity_limits,
                         size: 32,
                         color: currentTab == 1 ? Colors.red : Colors.grey),
                   ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -12,9 +13,9 @@ class producteScreen extends StatefulWidget {
 class _producteScreenState extends State<producteScreen> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
-        .collection('notification')
+        .collection('products')
         // .orderBy('Date', descending: true)
-        .where('UID', isEqualTo: widget.UserData["UID"])
+        // .where('UID', isEqualTo: widget.UserData["UID"])
         // .limitToLast(2)l
         .snapshots();
     return Scaffold(
