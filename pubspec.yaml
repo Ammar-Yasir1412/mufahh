@@ -33,6 +33,7 @@ dependencies:
   # geocoder: ^0.2.1
   geolocator: ^9.0.2
   permission_handler: ^10.2.0
+  expansion_card: ^0.1.0
   # location: ^4.4.0
   # google_maps_flutter: ^2.2.5
   # webview_flutter: ^4.0.7

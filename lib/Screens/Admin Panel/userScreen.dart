@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:expansion_card/expansion_card.dart';
 
 class userScreen extends StatefulWidget {
   const userScreen({super.key});
@@ -18,6 +17,7 @@ class _userScreenState extends State<userScreen> {
         // .where('UID', isEqualTo: widget.UserData["UID"])
         // .limitToLast(2)l
         .snapshots();
+    var userAction;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,7 +36,7 @@ class _userScreenState extends State<userScreen> {
           ),
         ),
         title: const Text(
-          "NOTIFICATIONS",
+          "Users",
           style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -71,27 +71,96 @@ class _userScreenState extends State<userScreen> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Card(
-                      margin: EdgeInsets.all(10),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(
-                              data["title"],
-                              style: TextStyle(fontSize: 15),
-                            ),
+                    child: ExpansionCard(
+                      margin: EdgeInsets.all(0),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${data["username"]}",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Join Date:${data["JoinDate"]}",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                              bottom: 3,
-                              right: 6,
-                              child: Text(data["JoinDate"])),
+                          Text(
+                            "${data["email"]}",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ],
-                      ));
+                      ),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 18),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Ph.No: ${data["PhoneNo"]}",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Gender: ${data["gender"]}",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Address: ${data["address"]}",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    DropdownButton<String>(
+                                      // Initial Value
+                                      value: userAction,
+
+                                      // Down Arrow Icon
+                                      icon:
+                                          const Icon(Icons.keyboard_arrow_down),
+
+                                      // Array list of items
+                                      items: ["Disable", "Delete"]
+                                          .map((String items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: Text(items),
+                                        );
+                                      }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          userAction = newValue!;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 }).toList());
           },
         ),
       ),
     );
   }
-
 }
