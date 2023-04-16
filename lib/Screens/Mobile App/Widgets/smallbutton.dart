@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants/style.dart';
+import '../../../constants/style.dart';
 
 
 Widget smallbutton(String name, Null Function() function){

@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:mufahh/Screens/Categories/Categories.dart';
 import 'package:mufahh/constants/style.dart';
-
-import '../../Widgets/myTextField.dart';
-import '../../constants/data.dart';
+import '../Categories/Categories.dart';
 import '../AddProduct/Add_product.dart';
+import '../Widgets/myTextField.dart';
+import '../../../constants/data.dart';
 import 'Searching.dart';
 import 'item_card.dart';
 

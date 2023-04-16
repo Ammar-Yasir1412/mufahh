@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mufahh/Screens/auth/login.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
-import '../../Widgets/myLargeButton.dart';
-import '../../Widgets/myTextField.dart';
+import '../Mobile App/Widgets/myLargeButton.dart';
+import '../Mobile App/Widgets/myTextField.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

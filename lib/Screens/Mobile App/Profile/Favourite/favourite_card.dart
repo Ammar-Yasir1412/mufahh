@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../Functions/addToCart.dart';
-import '../../../Widgets/drop_button.dart';
+import '../../../../Functions/addToCart.dart';
+import '../../Widgets/drop_button.dart';
 import '../../Dashboard/item_detail.dart';
 
 class favourite_card extends StatefulWidget {

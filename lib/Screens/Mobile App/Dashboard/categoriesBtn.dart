@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../Categories/Categories.dart';
-
 Widget categoriesBtn(context, title, icon, UserData) {
   return Card(
     color: Colors.red.shade100,

@@ -7,10 +7,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../Functions/toast.dart';
-import '../../Widgets/myLargeButton.dart';
-import '../../Widgets/myTextField.dart';
-import '../../constants/data.dart';
+import '../../../Functions/toast.dart';
+import '../Widgets/myLargeButton.dart';
+import '../Widgets/myTextField.dart';
+import '../../../constants/data.dart';
 
 class Add_product extends StatefulWidget {
   final Map UserData;

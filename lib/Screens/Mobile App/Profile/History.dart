@@ -1,25 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mufahh/Screens/Profile/simple_card.dart';
+import 'package:mufahh/Screens/Mobile%20App/Profile/simple_card.dart';
+
 import 'Favourite/favourite_card.dart';
 
-
-class Myadds extends StatefulWidget {
+class history extends StatefulWidget {
   final Map UserData;
-  const Myadds({super.key, required this.UserData});
+
+  const history({super.key, required this.UserData});
 
   @override
-  State<Myadds> createState() => _MyaddsState();
+  State<history> createState() => _historyState();
 }
 
-class _MyaddsState extends State<Myadds> {
+class _historyState extends State<history> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
         .collection('products')
-    // .orderBy('Date', descending: true)
-        .where('UID', isEqualTo: widget.UserData["UID"]).where('bidClose', isEqualTo: false)
-    // .limitToLast(2)l
+        // .orderBy('Date', descending: true)
+        .where('UID', isEqualTo: widget.UserData["UID"])
+        .where('bidClose', isEqualTo: true)
+        // .limitToLast(2)l
         .snapshots();
 
     return Scaffold(
@@ -45,17 +47,17 @@ class _MyaddsState extends State<Myadds> {
           ),
         ),
         body: SingleChildScrollView(
-          child:             StreamBuilder<QuerySnapshot>(
+          child: StreamBuilder<QuerySnapshot>(
             stream: _itemStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
                 return Container(
                     child: Column(
-                      children: [
-                        Text('Something went wrong'),
-                      ],
-                    ));
+                  children: [
+                    Text('Something went wrong'),
+                  ],
+                ));
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -74,19 +76,31 @@ class _MyaddsState extends State<Myadds> {
                 childAspectRatio: (1 / 1.18),
                 shrinkWrap: true,
                 maxCrossAxisExtent: 200.0,
-                children:
-                snapshot.data!.docs.map((DocumentSnapshot document) {
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
+                      document.data()! as Map<String, dynamic>;
                   return simple_card(
                     data: data,
                     UserData: widget.UserData,
                   );
                 }).toList(),
               );
+              // return ListView(
+              //   physics: const BouncingScrollPhysics(
+              //       parent: AlwaysScrollableScrollPhysics()),
+              //   controller: ScrollController(),
+              //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              //     Map<String, dynamic> data =
+              //         document.data()! as Map<String, dynamic>;
+              //     return item_card(
+              //       itemdata: data,
+              //       stalldata: widget.stalldata,
+              //       UserData: widget.UserData,
+              //     );
+              //   }).toList(),
+              // );
             },
           ),
-
         ));
   }
 }

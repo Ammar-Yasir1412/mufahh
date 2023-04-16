@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../Widgets/myTextField.dart';
+import '../Widgets/myTextField.dart';
 import '../home/home.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;

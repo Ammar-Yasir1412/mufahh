@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mufahh/Screens/Profile/profileUpdate.dart';
+import 'package:mufahh/Screens/Mobile%20App/Profile/profileUpdate.dart';
 
-import '../../Widgets/myAppBar.dart';
+import '../Widgets/myAppBar.dart';
 
 class Account extends StatefulWidget {
   final Map UserData;

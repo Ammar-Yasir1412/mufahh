@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../Functions/addToCart.dart';
-import '../../Widgets/dateConverte.dart';
-import '../../Widgets/drop_button.dart';
+import '../../../Functions/addToCart.dart';
+import '../Widgets/dateConverte.dart';
 import 'item_detail.dart';
 
 class item_card extends StatefulWidget {

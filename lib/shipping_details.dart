@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mufahh/ending_splash.dart';
-import 'package:mufahh/Screens/home/home.dart';
+import 'package:mufahh/Screens/auth/ending_splash.dart';
 
 class Shipping_Details extends StatefulWidget {
   const Shipping_Details({super.key});

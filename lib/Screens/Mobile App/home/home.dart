@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../Cart/cart.dart';
 import '../Dashboard/dashboard.dart';
 import '../AddProduct/Add_product.dart';
-import '../../notification.dart';
+import '../../../notification.dart';
 import '../Profile/profile.dart';
 
 class home extends StatefulWidget {

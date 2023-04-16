@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mufahh/Screens/auth/sign_up.dart';
-import 'package:mufahh/Screens/home/home.dart';
+import 'package:mufahh/Screens/Mobile%20App/home/home.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
-import '../../Widgets/myLargeButton.dart';
-import '../../Widgets/myTextField.dart';
+import '../Mobile App/Widgets/myLargeButton.dart';
+import '../Mobile App/Widgets/myTextField.dart';
 import 'forgot.dart';
 
 class Login extends StatefulWidget {

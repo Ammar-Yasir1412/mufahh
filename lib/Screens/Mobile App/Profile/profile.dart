@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mufahh/Screens/Profile/Account.dart';
-import 'package:mufahh/Screens/Profile/History.dart';
-import 'package:mufahh/Screens/Profile/myads.dart';
-import '../../Widgets/myLargeButton.dart';
-import '../auth/Splash_Screen.dart';
+import 'package:mufahh/Screens/Mobile%20App/Profile/Account.dart';
+import 'package:mufahh/Screens/Mobile%20App/Profile/History.dart';
+import 'package:mufahh/Screens/Mobile%20App/Profile/myads.dart';
+import '../Widgets/myLargeButton.dart';
+import '../../auth/Splash_Screen.dart';
 import 'Favourite/myFavourite.dart';
 
 class profile extends StatefulWidget {

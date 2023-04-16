@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mufahh/Widgets/smallbutton.dart';
+import 'package:mufahh/Screens/Mobile%20App/Widgets/smallbutton.dart';
 
-import '../Functions/toast.dart';
+import '../../../Functions/toast.dart';
 
 Widget myDelete(context, collection, doc) {
   return CircleAvatar(
