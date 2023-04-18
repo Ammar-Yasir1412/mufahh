@@ -114,7 +114,7 @@ class _ForgotState extends State<Forgot> {
                       duration: Duration(milliseconds: 300),
                       height: 45,
                       width: MediaQuery.of(context).size.width * 0.90,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(90)),
                         color: Colors.yellow,
                         gradient: LinearGradient(
