@@ -44,12 +44,19 @@ class _LoginState extends State<Login> {
         setState(() {
           UserData = data;
         });
+        print('======>${UserData["user"]}');
         if (UserData["admin"] == true) {
+          // ignore: use_build_context_synchronously
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => bottumNavAdmin()),
+            MaterialPageRoute(builder: (context) => const bottumNavAdmin()),
           );
+        } else if (UserData["user"] == "Disable") {
+          toast("Your account is disable by admin");
+        } else if (UserData["user"] == "Delete") {
+          toast("Your account is delete by admin");
         } else {
+          // ignore: use_build_context_synchronously
           Navigator.push(
             context,
             MaterialPageRoute(
