@@ -157,27 +157,27 @@ class _item_cardState extends State<item_card> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                                                        Text(
+                            Text(
                               '${widget.data["title"]}',
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                          "\$${widget.data["price"]}",
-                        ),
+                              "\$${widget.data["price"]}",
+                            ),
                           ],
                         ),
-                        
+
                         Text(
                           widget.data["bidStart"] > now
                               ? "Live: ${dateConverte(widget.data["bidStart"], "Left")}"
-                              : "Close: ${dateConverte(widget.data["bidEnd"], "Ago")}",
+                              : "Close: ${dateConverte(widget.data["bidEnd"], "Left")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
                         ),
-                        
+
                         // Text(
                         //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
                         //

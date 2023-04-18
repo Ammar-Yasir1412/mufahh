@@ -5,6 +5,7 @@ import 'package:mufahh/Screens/auth/sign_up.dart';
 import 'package:mufahh/Screens/Mobile%20App/home/home.dart';
 import 'package:intl/intl.dart';
 import '../../Functions/toast.dart';
+import '../Admin Panel/bottumNavAdmin.dart';
 import '../Mobile App/Widgets/myLargeButton.dart';
 import '../Mobile App/Widgets/myTextField.dart';
 import 'forgot.dart';
@@ -43,13 +44,20 @@ class _LoginState extends State<Login> {
         setState(() {
           UserData = data;
         });
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => home(
-                    UserData: UserData,
-                  )),
-        );
+        if (UserData["admin"] == true) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => bottumNavAdmin()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => home(
+                      UserData: UserData,
+                    )),
+          );
+        }
       } else {
         toast("Please fill all text field");
       }
@@ -91,7 +99,7 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     SizedBox(),
-              CircleAvatar(
+                    CircleAvatar(
                       radius: 60,
                       backgroundImage: AssetImage('assets/Mufahh_logo.png'),
                       backgroundColor: Color.fromARGB(255, 252, 250, 250),
@@ -109,13 +117,21 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-              myTextField(context, "Enter your Email",Icons.person, emailCtrl,),
+              myTextField(
+                context,
+                "Enter your Email",
+                Icons.person,
+                emailCtrl,
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              myTextField(context, "Enter your Password",Icons.key, passwordCtrl,),
-
-
+              myTextField(
+                context,
+                "Enter your Password",
+                Icons.key,
+                passwordCtrl,
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               myLargeButton(context, "Login", register, looding),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
@@ -134,13 +150,12 @@ class _LoginState extends State<Login> {
                 );
               }, false),
               SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-              myLargeButton(context, "FORGOT PASSWORD", (){
+              myLargeButton(context, "FORGOT PASSWORD", () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Forgot()),
                 );
               }, false),
-
             ],
           ),
         ),
