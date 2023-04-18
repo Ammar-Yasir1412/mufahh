@@ -243,13 +243,13 @@ class _producteScreenState extends State<producteScreen> {
                                     },
                                     itemBuilder: (context) => [
                                       PopupMenuItem(
-                                        child: Text(data["type"] != "Panding"
+                                        child: Text(data["type"] != "aprove"
                                             ? 'Aproved'
-                                            : 'Reject'),
+                                            : 'Panding'),
                                         onTap: () async {
                                           var type = data["type"] != "aprove"
                                               ? 'aprove'
-                                              : 'reject';
+                                              : 'panding';
                                           await FirebaseFirestore.instance
                                               .collection("products")
                                               .doc(data["Key"])
