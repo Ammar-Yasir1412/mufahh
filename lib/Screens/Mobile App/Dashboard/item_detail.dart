@@ -195,7 +195,7 @@ class _item_detailState extends State<item_detail> {
                           // "Last Bid: ${widget.data["lastBid"]}",
                           widget.data["bidEnd"] > now
                               ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
-                              : "Live Now: ${dateConverte(widget.data["bidEnd"], "Ago")}",
+                              : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
