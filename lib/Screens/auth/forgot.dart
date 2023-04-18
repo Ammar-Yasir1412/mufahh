@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mufahh/Screens/auth/login.dart';
+
+import '../../Functions/toast.dart';
 
 class Forgot extends StatefulWidget {
   @override
@@ -8,6 +11,19 @@ class Forgot extends StatefulWidget {
 }
 
 class _ForgotState extends State<Forgot> {
+  Future<void> _resetPassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text);
+
+      toast('Password reset email sent to ${emailController.text}');
+      Navigator.pop(context);
+    } catch (e) {
+      toast(e.toString());
+    }
+  }
+
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +51,7 @@ class _ForgotState extends State<Forgot> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Color.fromARGB(255, 230, 222, 222)),
                     ),
                   )),
               SizedBox(
@@ -82,18 +98,16 @@ class _ForgotState extends State<Forgot> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
-                child: const TextField(
+                child:  TextField(
+                  controller: emailController,
                   cursorColor: Color(0xffF5591F),
-                  decoration: InputDecoration(hintText: "Mobile or Email"),
+                  decoration: InputDecoration(hintText: "Email"),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
+                    _resetPassword();
                   },
                   child: AnimatedContainer(
                       alignment: Alignment.center,
