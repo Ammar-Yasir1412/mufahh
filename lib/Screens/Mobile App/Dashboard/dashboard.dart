@@ -53,13 +53,15 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromARGB(226, 75, 41, 41),
-            floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
-           Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Add_product(UserData: widget.UserData,)),
-        );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Add_product(
+                      UserData: widget.UserData,
+                    )),
+          );
         },
         child: Icon(
           Icons.add,
@@ -68,7 +70,7 @@ class _dashboardState extends State<dashboard> {
         ),
         backgroundColor: Colors.red,
       ),
-    
+
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(12.0),
@@ -76,36 +78,35 @@ class _dashboardState extends State<dashboard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 SizedBox(height: 30),
-              
-                    Container(
-                      // padding: EdgeInsets.only(left: 10),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 221, 219, 219),
-                      ),
-                      child: TextField(
-                        controller: searchCTRL,
-                        textInputAction: TextInputAction.search,
-                        onSubmitted: (val) {
-                         Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Searching(
-                                            UserData: widget.UserData,
-                                            searching:val,
-                                          )));
-                        },
-                        cursorColor: Color(0xffF5591F),
-                        decoration: const InputDecoration(
-                          labelText: "Searching",
-                          prefixIcon: Icon(Icons.search),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      ),
+
+                Container(
+                  // padding: EdgeInsets.only(left: 10),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromARGB(255, 221, 219, 219),
+                  ),
+                  child: TextField(
+                    controller: searchCTRL,
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (val) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Searching(
+                                    UserData: widget.UserData,
+                                    searching: val,
+                                  )));
+                    },
+                    cursorColor: Color(0xffF5591F),
+                    decoration: const InputDecoration(
+                      labelText: "Searching",
+                      prefixIcon: Icon(Icons.search),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
                     ),
-                
+                  ),
+                ),
 
                 const SizedBox(
                   height: 10,
@@ -236,10 +237,14 @@ class _dashboardState extends State<dashboard> {
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
-                        return item_card(
-                          data: data,
-                          UserData: widget.UserData,
-                        );
+                        if (data["aprove"]) {
+                          return item_card(
+                            data: data,
+                            UserData: widget.UserData,
+                          );
+                        } else {
+                          return Container();
+                        }
                       }).toList(),
                     );
                   },
