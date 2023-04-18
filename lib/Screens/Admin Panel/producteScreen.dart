@@ -15,15 +15,15 @@ class _producteScreenState extends State<producteScreen> {
   var page = 0;
   final Stream<QuerySnapshot> _AllStream =
       FirebaseFirestore.instance.collection('products').snapshots();
-  final Stream<QuerySnapshot> _EnableStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _PandingStream = FirebaseFirestore.instance
       .collection('products')
       .where('type', isEqualTo: "panding")
       .snapshots();
-  final Stream<QuerySnapshot> _DisableStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _AprovedStream = FirebaseFirestore.instance
       .collection('products')
       .where('type', isEqualTo: "aprove")
       .snapshots();
-  final Stream<QuerySnapshot> _DeleteStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _RejectStream = FirebaseFirestore.instance
       .collection('products')
       .where('type', isEqualTo: "reject")
       .snapshots();
@@ -54,69 +54,72 @@ class _producteScreenState extends State<producteScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(children: [
-              Radio(
-                value: 0,
-                groupValue: page,
-                onChanged: (val) {
-                  setState(() {
-                    page = 0;
-                  });
-                },
-              ),
-              const Text(
-                'All',
-                style: TextStyle(fontSize: 17.0),
-              ),
-              Radio(
-                value: 1,
-                groupValue: page,
-                onChanged: (val) {
-                  setState(() {
-                    page = 1;
-                  });
-                },
-              ),
-              const Text(
-                'Enable',
-                style: TextStyle(fontSize: 17.0),
-              ),
-              Radio(
-                value: 2,
-                groupValue: page,
-                onChanged: (val) {
-                  setState(() {
-                    page = 2;
-                  });
-                },
-              ),
-              const Text(
-                'Disable',
-                style: TextStyle(fontSize: 17.0),
-              ),
-              Radio(
-                value: 3,
-                groupValue: page,
-                onChanged: (val) {
-                  setState(() {
-                    page = 3;
-                  });
-                },
-              ),
-              const Text(
-                'Delete',
-                style: TextStyle(fontSize: 17.0),
-              ),
-            ]),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                Radio(
+                  value: 0,
+                  groupValue: page,
+                  onChanged: (val) {
+                    setState(() {
+                      page = 0;
+                    });
+                  },
+                ),
+                const Text(
+                  'All',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+                Radio(
+                  value: 1,
+                  groupValue: page,
+                  onChanged: (val) {
+                    setState(() {
+                      page = 1;
+                    });
+                  },
+                ),
+                const Text(
+                  'Panding',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+                Radio(
+                  value: 2,
+                  groupValue: page,
+                  onChanged: (val) {
+                    setState(() {
+                      page = 2;
+                    });
+                  },
+                ),
+                const Text(
+                  'Aproved',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+                Radio(
+                  value: 3,
+                  groupValue: page,
+                  onChanged: (val) {
+                    setState(() {
+                      page = 3;
+                    });
+                  },
+                ),
+                const Text(
+                  'Reject',
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ]),
+            ),
             StreamBuilder<QuerySnapshot>(
               stream: page == 0
                   ? _AllStream
                   : page == 1
-                      ? _EnableStream
+                      ? _PandingStream
                       : page == 2
-                          ? _DisableStream
+                          ? _AprovedStream
                           : page == 3
-                              ? _DeleteStream
+                              ? _RejectStream
                               : _AllStream,
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -147,14 +150,15 @@ class _producteScreenState extends State<producteScreen> {
                           document.data()! as Map<String, dynamic>;
                       return Card(
                         child: ExpansionCard(
-                          margin: EdgeInsets.all(0),
+                          margin: const EdgeInsets.all(0),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8.0, right: 8.0),
                                     child: Container(
                                         width: 100.00,
                                         height: 100.00,
@@ -204,7 +208,7 @@ class _producteScreenState extends State<producteScreen> {
                           ),
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(left: 18),
+                              padding: const EdgeInsets.only(left: 8),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -215,11 +219,13 @@ class _producteScreenState extends State<producteScreen> {
                                     children: [
                                       Text(
                                         "Owner: ${data["PhoneNo"]}",
-                                        style: TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         "Ph.No: ${data["ownerName"]}",
-                                        style: TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         "Address: ${data["address"]}",
@@ -241,7 +247,7 @@ class _producteScreenState extends State<producteScreen> {
                                             ? 'Aproved'
                                             : 'Reject'),
                                         onTap: () async {
-                                          var type = data["type"] != "Disable"
+                                          var type = data["type"] != "aprove"
                                               ? 'aprove'
                                               : 'reject';
                                           await FirebaseFirestore.instance
@@ -252,12 +258,12 @@ class _producteScreenState extends State<producteScreen> {
                                       ),
                                       PopupMenuItem(
                                         value: 'item2',
-                                        child: Text('Delete'),
+                                        child: Text('Reject'),
                                         onTap: () async {
                                           await FirebaseFirestore.instance
                                               .collection("products")
                                               .doc(data["Key"])
-                                              .update({"type": "delete"});
+                                              .update({"type": "reject"});
                                         },
                                       ),
                                     ],
