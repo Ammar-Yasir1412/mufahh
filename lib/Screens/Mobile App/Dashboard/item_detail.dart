@@ -63,20 +63,24 @@ class _item_detailState extends State<item_detail> {
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('EEE d MMM').format(now);
         var data = widget.data['Bid'] ?? [];
-        data.add({
-          "UID": widget.UserData["UID"],
-          "amount": amount,
-          "address": widget.UserData["address"],
-          "username": widget.UserData["username"],
-          "email": widget.UserData["email"],
-          "PhoneNo": widget.UserData["PhoneNo"],
-          "JoinDate": formattedDate,
-        });
-        await firestore
-            .collection("products")
-            .doc(widget.data["Key"])
-            .update({"Bid": data});
-        toast("Bid Uploaded");
+        if (widget.UserData["UID"] >= amount) {
+          data.add({
+            "UID": widget.UserData["UID"],
+            "amount": amount,
+            "address": widget.UserData["address"],
+            "username": widget.UserData["username"],
+            "email": widget.UserData["email"],
+            "PhoneNo": widget.UserData["PhoneNo"],
+            "JoinDate": formattedDate,
+          });
+          await firestore
+              .collection("products")
+              .doc(widget.data["Key"])
+              .update({"Bid": data});
+          toast("Bid Uploaded");
+        } else {
+          toast("ammount is low");
+        }
       } else {
         toast("Please fill all text field");
       }
