@@ -225,19 +225,14 @@ class _dashboardState extends State<dashboard> {
                     if (snapshot.data?.size == 0) {
                       return const Center(child: Text("No data found"));
                     }
-                    return GridView.extent(
-                      primary: false,
-                      padding: const EdgeInsets.all(16),
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: (1 / 1.18),
-                      shrinkWrap: true,
-                      maxCrossAxisExtent: 200.0,
-                      children:
-                          snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        if (data["aprove"]) {
+                    return ListView(
+                 shrinkWrap: true,
+                  controller: ScrollController(),
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                        if (data["type"]=="aprove") {
                           return item_card(
                             data: data,
                             UserData: widget.UserData,

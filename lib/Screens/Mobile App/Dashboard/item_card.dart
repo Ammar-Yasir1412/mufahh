@@ -57,118 +57,46 @@ class _item_cardState extends State<item_card> {
               .update({"Live": widget.data["Live"] + 1});
         }
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          color: Colors.grey[200],
-        ),
+      child: Card(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Stack(
             children: [
-              Column(
+              Row(
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                          width: 190.00,
-                          height: 120.00,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            image: _disable
-                                ? DecorationImage(
-                                    image: AssetImage("logo"),
-                                    fit: BoxFit.fill,
-                                  )
-                                : DecorationImage(
-                                    image:
-                                        NetworkImage('${widget.data["url"]}'),
-                                    fit: BoxFit.fill,
-                                  ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            now > widget.data["bidStart"]
-                                ? Container(
-                                    color: Colors.red,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, right: 8.0),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            "Live",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(width: 3),
-                                          const Icon(
-                                            Icons.visibility,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(width: 3),
-                                          Text(
-                                            "${widget.data["Live"]}",
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                            InkWell(
-                              onTap: () {
-                                if (like == false) {
-                                  addToCart(widget.data["Key"],
-                                      widget.data["Likes"], widget.UserData);
-                                } else {
-                                  UnaddToCart(widget.data["Key"],
-                                      widget.data["Likes"], widget.UserData);
-                                  setState(() {
-                                    like = false;
-                                  });
-                                }
-                              },
-                              child: Icon(
-                                like ? Icons.favorite : Icons.favorite_border,
-                                color: Colors.red,
+                  Container(
+                      width: 120.00,
+                      height: 100.00,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        image: _disable
+                            ? DecorationImage(
+                                image: AssetImage("logo"),
+                                fit: BoxFit.fill,
+                              )
+                            : DecorationImage(
+                                image: NetworkImage('${widget.data["url"]}'),
+                                fit: BoxFit.fill,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 200,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${widget.data["title"]}',
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "\$${widget.data["price"]}",
-                            ),
-                          ],
+                        Text(
+                          '${widget.data["title"]}',
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),SizedBox(height: 10,),
+            
+                        Text(
+                          "Price \$${widget.data["price"]}",
                         ),
-
+            SizedBox(height: 10,),
                         Text(
                           widget.data["bidStart"] > now
                               ? "Live: ${dateConverte(widget.data["bidStart"], "Left")}"
@@ -177,7 +105,7 @@ class _item_cardState extends State<item_card> {
                             fontSize: 17,
                           ),
                         ),
-
+            
                         // Text(
                         //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
                         //
@@ -193,6 +121,63 @@ class _item_cardState extends State<item_card> {
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    now > widget.data["bidStart"]
+                        ? Container(
+                            color: Colors.red,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Live",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(width: 3),
+                                  const Icon(
+                                    Icons.visibility,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    "${widget.data["Live"]}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : Container(),
+                    InkWell(
+                      onTap: () {
+                        if (like == false) {
+                          addToCart(widget.data["Key"], widget.data["Likes"],
+                              widget.UserData);
+                        } else {
+                          UnaddToCart(widget.data["Key"], widget.data["Likes"],
+                              widget.UserData);
+                          setState(() {
+                            like = false;
+                          });
+                        }
+                      },
+                      child: Icon(
+                        like ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
