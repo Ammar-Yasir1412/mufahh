@@ -68,23 +68,22 @@ class _SearchingState extends State<Searching> {
                   if (snapshot.data?.size == 0) {
                     return Center(child: const Text("No data found"));
                   }
-                  return GridView.extent(
-                    primary: false,
-                    padding: const EdgeInsets.all(16),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: (1 / 1.18),
-                    shrinkWrap: true,
-                    maxCrossAxisExtent: 200.0,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      return item_card(
-                        data: data,
-                        UserData: widget.UserData,
-                      );
-                    }).toList(),
+                  return ListView(
+                 shrinkWrap: true,
+                  controller: ScrollController(),
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                        if (data["type"]=="aprove") {
+                          return item_card(
+                            data: data,
+                            UserData: widget.UserData,
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }).toList(),
                   );
                 },
               ),
