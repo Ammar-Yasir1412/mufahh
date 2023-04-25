@@ -31,7 +31,7 @@ class _profileUpdateState extends State<profileUpdate> {
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       (Color.fromARGB(255, 99, 4, 4)),
@@ -51,7 +51,7 @@ class _profileUpdateState extends State<profileUpdate> {
                   ),
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -75,7 +75,6 @@ class _profileUpdateState extends State<profileUpdate> {
                         .update({
                       widget.nKey: textcontroler.text,
                     });
-                    print("${widget.UserData}");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
