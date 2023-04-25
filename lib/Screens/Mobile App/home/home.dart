@@ -29,24 +29,7 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
                         print("${widget.UserData}");
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 214, 15, 15),
-
       body: PageStorage(bucket: bucket, child: CurrentScreen),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       CurrentScreen = Add_product(UserData: widget.UserData,);
-      //       currentTab = 5;
-      //     });
-      //   },
-      //   child: Icon(
-      //     Icons.add,
-      //     size: 32,
-      //     color: Colors.white,
-      //   ),
-      //   backgroundColor: Colors.red,
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(
@@ -64,7 +47,7 @@ class _homeState extends State<home> {
                     },
                     child: Icon(Icons.home,
                         size: 32,
-                        color: currentTab == 0 ? Colors.red : Colors.grey),
+                        color: currentTab == 0 ? Colors.red : Colors.red.shade200),
                   ),
                   MaterialButton(
                     minWidth: 60,
@@ -76,7 +59,7 @@ class _homeState extends State<home> {
                     },
                     child: Icon(Icons.notifications,
                         size: 32,
-                        color: currentTab == 1 ? Colors.red : Colors.grey),
+                        color: currentTab == 1 ? Colors.red : Colors.red.shade200),
                   ),
                   MaterialButton(
                     minWidth: 60,
@@ -88,7 +71,7 @@ class _homeState extends State<home> {
                     },
                     child: Icon(Icons.shopping_cart,
                         size: 32,
-                        color: currentTab == 2 ? Colors.red : Colors.grey),
+                        color: currentTab == 2 ? Colors.red : Colors.red.shade200),
                   ),
                   MaterialButton(
                     minWidth: 60,
@@ -100,7 +83,7 @@ class _homeState extends State<home> {
                     },
                     child: Icon(Icons.person,
                         size: 32,
-                        color: currentTab == 3 ? Colors.red : Colors.grey),
+                        color: currentTab == 3 ? Colors.red : Colors.red.shade200),
                   ),
                 ])),
       ),
