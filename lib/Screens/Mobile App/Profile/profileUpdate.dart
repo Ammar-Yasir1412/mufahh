@@ -7,58 +7,6 @@ import '../home/home.dart';
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 TextEditingController textcontroler = TextEditingController();
 
-// profileUpdate(context, title,key, UserData) async {
-//   showModalBottomSheet(
-//     context: context,
-//     builder: (context) {
-//       return Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Wrap(
-//           children: [
-//             const Center(
-//               child: Text(
-//                 "Update Your Profile",
-//                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(18.0),
-//               child: myTextField(
-//                 context,
-//                 "Add $title",
-//                 Icons.title,
-//                 textcontroler,
-//               ),
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//               children: [
-//                 ElevatedButton(
-//                     onPressed: () async {
-//                       UserData[title] = textcontroler.text;
-//                       await firestore
-//                           .collection("users")
-//                           .doc(UserData["UID"])
-//                           .update({
-//                         key: textcontroler.text,
-//                       });
-//                       textcontroler.clear();
-//                     },
-//                     child: const Text("Update")),
-//                 ElevatedButton(
-//                     onPressed: () async {
-//                       Navigator.pop(context);
-//                     },
-//                     child: const Text("Cancel")),
-//               ],
-//             ),
-//           ],
-//         ),
-//       );
-//     },
-//   );
-// }
-
 class profileUpdate extends StatefulWidget {
   final String title;
   final String nKey;
@@ -76,7 +24,6 @@ class profileUpdate extends StatefulWidget {
 class _profileUpdateState extends State<profileUpdate> {
   @override
   Widget build(BuildContext context) {
-    print("============>${widget.nKey}");
     return Scaffold(
       body: Wrap(
         children: [
@@ -135,7 +82,7 @@ class _profileUpdateState extends State<profileUpdate> {
                           builder: (context) => home(
                                 UserData: widget.UserData,
                               )),
-                    );
+                    );textcontroler.clear();
                   },
                   child: const Text("Update")),
               ElevatedButton(
