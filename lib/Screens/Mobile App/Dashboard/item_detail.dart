@@ -133,7 +133,6 @@ class _item_detailState extends State<item_detail> {
 
   @override
   Widget build(BuildContext context) {
-    var vwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -209,7 +208,7 @@ class _item_detailState extends State<item_detail> {
                     children: [
                       Text(
                         "Type: ${widget.data["category"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
@@ -221,7 +220,7 @@ class _item_detailState extends State<item_detail> {
                               throw Exception('Could not launch $_url');
                             }
                           },
-                          icon: Icon(Icons.location_city))
+                          icon: const Icon(Icons.gps_fixed ))
                     ],
                   ),
                   _spacer(),
@@ -242,7 +241,7 @@ class _item_detailState extends State<item_detail> {
                   widget.data['Bid'] != null
                       ? Column(
                           children: [
-                            Center(
+                            const Center(
                               child: Text(
                                 "Biddings ",
                                 style: TextStyle(
