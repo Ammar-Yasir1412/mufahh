@@ -70,7 +70,11 @@ class _Add_productState extends State<Add_product> {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
-      if (title != '' && description != '' && address != '' &&price != '' && URL != null) {
+      if (title != '' &&
+          description != '' &&
+          address != '' &&
+          price != '' &&
+          URL != null) {
         DateTime now = DateTime.now();
         var key = now.microsecondsSinceEpoch.toString();
         await firestore.collection("products").doc(key).set({
@@ -85,7 +89,8 @@ class _Add_productState extends State<Add_product> {
           "price": price,
           "PhoneNo": widget.UserData["PhoneNo"],
           "ownerName": widget.UserData["username"],
-          "url": URL,
+          "url": "panding",
+          "type": "URL",
           "lat": lat,
           "long": long,
           "bidStart": bidStart,
@@ -224,39 +229,58 @@ class _Add_productState extends State<Add_product> {
             addressCtrl,
           ),
           SizedBox(height: 10),
-          myTextField(
-            context,
-            "Add bid start Price",
-            Icons.price_change,
-            priceCtrl,
+
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            width: MediaQuery.of(context).size.width * 0.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 216, 211, 211),
+            ),
+            child: TextField(
+              controller: priceCtrl,
+              keyboardType: TextInputType.number,
+              cursorColor: Color(0xffF5591F),
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.price_change,
+                  color: Color.fromARGB(255, 105, 97, 97),
+                ),
+                hintText: "Add bid start Price",
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+            ),
           ),
           SizedBox(height: 10),
-           ElevatedButton(
-                  onPressed: () {
-                    showDateRangePicker(
-                        context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 1, 1),
-                        // initialDate: DateTime.now(),
-                        builder: (context, picker) {
-                          return Container(
-                            child: picker!,
-                          );
-                        }).then((selectedDate) {
-                      //TODO: handle selected date
-                      if (selectedDate != null) {
-                        setState(() {
-                          bidStart = selectedDate.start.microsecondsSinceEpoch;
-                          bidEnd = selectedDate.end.microsecondsSinceEpoch;
-                          bidStartDate =
-                              "${selectedDate.start.day}/${selectedDate.start.month}/${selectedDate.start.year}";bidEndDate =
-                              "${selectedDate.end.day}/${selectedDate.end.month}/${selectedDate.end.year}";
-                        });
-                      }
+          ElevatedButton(
+              onPressed: () {
+                showDateRangePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(DateTime.now().year + 1, 1),
+                    // initialDate: DateTime.now(),
+                    builder: (context, picker) {
+                      return Container(
+                        child: picker!,
+                      );
+                    }).then((selectedDate) {
+                  //TODO: handle selected date
+                  if (selectedDate != null) {
+                    setState(() {
+                      bidStart = selectedDate.start.microsecondsSinceEpoch;
+                      bidEnd = selectedDate.end.microsecondsSinceEpoch;
+                      bidStartDate =
+                          "${selectedDate.start.day}/${selectedDate.start.month}/${selectedDate.start.year}";
+                      bidEndDate =
+                          "${selectedDate.end.day}/${selectedDate.end.month}/${selectedDate.end.year}";
                     });
-                  },
-                  child: Text("${bidStartDate ?? "Bit Start Date"} To ${bidEndDate ?? "Bit End Date"}")),
-           
+                  }
+                });
+              },
+              child: Text(
+                  "${bidStartDate ?? "Bit Start Date"} To ${bidEndDate ?? "Bit End Date"}")),
+
           Container(
               height: 20,
               width: MediaQuery.of(context).size.width,

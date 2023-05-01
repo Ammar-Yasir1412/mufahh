@@ -48,6 +48,7 @@ class _dashboardState extends State<dashboard> {
   final Stream<QuerySnapshot> _sliderStream =
       FirebaseFirestore.instance.collection('Slider').snapshots();
   final TextEditingController searchCTRL = TextEditingController();
+  var now = DateTime.now().microsecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +233,7 @@ class _dashboardState extends State<dashboard> {
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                     Map<String, dynamic> data =
                         document.data()! as Map<String, dynamic>;
-                        if (data["type"]=="aprove") {
+                        if (data["type"]=="aprove"&&data["bidEnd"] > now) {
                           return item_card(
                             data: data,
                             UserData: widget.UserData,
