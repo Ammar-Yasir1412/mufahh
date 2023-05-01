@@ -30,7 +30,7 @@ class _item_cardState extends State<item_card> {
       // TotelLikes = Likes.length;
       // print('===========Length=============>${Likes.length}');
       for (var entry in Likes.entries) {
-        if (widget.data["UID"] == entry.value) {
+        if (widget.UserData["UID"] == entry.value) {
           setState(() {
             like = true;
           });
@@ -71,7 +71,7 @@ class _item_cardState extends State<item_card> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         image: _disable
-                            ? DecorationImage(
+                            ? const DecorationImage(
                                 image: AssetImage("logo"),
                                 fit: BoxFit.fill,
                               )
@@ -91,21 +91,26 @@ class _item_cardState extends State<item_card> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
-                        ),SizedBox(height: 10,),
-            
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+
                         Text(
                           "Price \$${widget.data["price"]}",
                         ),
-            SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text(
-                          widget.data["bidStart"] > now
-                              ? "Live: ${dateConverte(widget.data["bidStart"], "Left")}"
-                              : "Close: ${dateConverte(widget.data["bidEnd"], "Left")}",
+                          widget.data["bidEnd"] > now
+                              ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
+                              : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
                           style: const TextStyle(
                             fontSize: 17,
                           ),
                         ),
-            
+
                         // Text(
                         //   '${widget.data["category"]}',                          overflow: TextOverflow.ellipsis,
                         //

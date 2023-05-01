@@ -66,16 +66,16 @@ class _CategoriesState extends State<Categories> {
                     );
                   }
                   if (snapshot.data?.size == 0) {
-                    return Center(child: const Text("No data found"));
+                    return const Center(child: Text("No data found"));
                   }
                   return ListView(
                     shrinkWrap: true,
                     controller: ScrollController(),
                     children:
-                    snapshot.data!.docs.map((DocumentSnapshot document) {
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                      if (data["type"]=="aprove") {
+                          document.data()! as Map<String, dynamic>;
+                      if (data["type"] == "aprove") {
                         return item_card(
                           data: data,
                           UserData: widget.UserData,
