@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mufahh/Screens/Mobile%20App/Profile/Account.dart';
 import 'package:mufahh/Screens/Mobile%20App/Profile/History.dart';
 import 'package:mufahh/Screens/Mobile%20App/Profile/myads.dart';
+import '../../../Functions/toast.dart';
 import '../Widgets/myLargeButton.dart';
 import '../../auth/Splash_Screen.dart';
 import 'Favourite/myFavourite.dart';
@@ -16,6 +22,45 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  bool imageLooding = false;
+  var progressshow = 0.0;
+
+  late final XFile? image;
+  pickImage() async {
+    setState(() {
+      imageLooding = true;
+    });
+    image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 45);
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child("${DateTime.now().microsecondsSinceEpoch}");
+    UploadTask uploadTask = ref.putFile(File(image!.path));
+    uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
+      double progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      setState(() {
+        progressshow = progress;
+      });
+    });
+    uploadTask.whenComplete(() async {
+      var url = await ref.getDownloadURL();
+
+      await firestore.collection("users").doc(widget.UserData["UID"]).update({
+        "profile": url,
+      });
+      setState(() {
+        widget.UserData["profile"] = url;
+        imageLooding = false;
+      });
+    }).catchError((onError) {
+      setState(() {
+        imageLooding = false;
+      });
+      toast(onError.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,22 +99,47 @@ class _profileState extends State<profile> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Center(
-                      child: Container(
-                        height: 130,
-                        width: 130,
-                        child: widget.UserData["profile"] != null
-                            ? CircleAvatar(
-                                radius: 70,
-                                backgroundImage:
-                                    NetworkImage(widget.UserData["profile"]),
-                              )
-                            : const CircleAvatar(
-                                radius: 70,
-                                backgroundImage:
-                                    AssetImage('assets/Images/profile.jpg'),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          height: 130,
+                          width: 130,
+                          child: widget.UserData["profile"] != null
+                              ? CircleAvatar(
+                                  radius: 70,
+                                  backgroundImage: NetworkImage(
+                                      widget.UserData["profile"]),
+                                )
+                              : const CircleAvatar(
+                                  radius: 70,
+                                  backgroundImage:
+                                      AssetImage('assets/Images/profile.jpg'),
+                                ),
+                        ),
+                        Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: InkWell(
+                              onTap: () {
+                                pickImage();
+                              },
+                              child: Container(
+                                height: 44,
+                                width: 44,
+                                decoration: BoxDecoration(
+                                  color: Colors.greenAccent,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.camera,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                      ),
+                            ))
+                      ],
                     ),
                     GestureDetector(
                       onTap: (() => {
@@ -111,7 +181,6 @@ class _profileState extends State<profile> {
                               UserData: widget.UserData,
                             ),
                             "History"),
-                  
                       ],
                     ),
                     SizedBox(

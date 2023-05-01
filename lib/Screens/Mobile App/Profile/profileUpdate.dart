@@ -81,7 +81,8 @@ class _profileUpdateState extends State<profileUpdate> {
                           builder: (context) => home(
                                 UserData: widget.UserData,
                               )),
-                    );textcontroler.clear();
+                    );
+                    textcontroler.clear();
                   },
                   child: const Text("Update")),
               ElevatedButton(
@@ -94,6 +95,5 @@ class _profileUpdateState extends State<profileUpdate> {
         ],
       ),
     );
-    ;
   }
 }
