@@ -47,6 +47,7 @@ class InitState extends State<Signup> {
             "email": email,
             "PhoneNo": phoneNo,
             "password": password,
+            'user': "Enable",
             "JoinDate": formattedDate,
           });
 
