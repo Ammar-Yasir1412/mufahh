@@ -243,7 +243,7 @@ class _item_detailState extends State<item_detail> {
                           children: [
                             const Center(
                               child: Text(
-                                "Biddings ",
+                                "Bidding",
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
