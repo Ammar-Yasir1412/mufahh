@@ -7,6 +7,7 @@ import '../Categories/Categories.dart';
 import '../AddProduct/Add_product.dart';
 import '../Widgets/myTextField.dart';
 import '../../../constants/data.dart';
+import 'Searching copy.dart';
 import 'Searching.dart';
 import 'item_card.dart';
 
@@ -98,11 +99,45 @@ class _dashboardState extends State<dashboard> {
                                     UserData: widget.UserData,
                                     searching: val,
                                   )));
+                      searchCTRL.clear();
                     },
                     cursorColor: Color(0xffF5591F),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: "Searching",
                       prefixIcon: Icon(Icons.search),
+                      suffixIcon: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: const Text("Searching"),
+                                content: myTextField(
+                                  context,
+                                  "Search by Location",
+                                  Icons.person,
+                                  searchCTRL,
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                       Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchingL(
+                                    UserData: widget.UserData,
+                                    searching: searchCTRL.text,
+                                  )));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(14),
+                                      child: const Text("Search"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Icon(Icons.map_outlined)),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                     ),
@@ -227,13 +262,13 @@ class _dashboardState extends State<dashboard> {
                       return const Center(child: Text("No data found"));
                     }
                     return ListView(
-                 shrinkWrap: true,
-                  controller: ScrollController(),
-                  children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic> data =
-                        document.data()! as Map<String, dynamic>;
-                        if (data["type"]=="aprove"&&data["bidEnd"] > now) {
+                      shrinkWrap: true,
+                      controller: ScrollController(),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        if (data["type"] == "aprove" && data["bidEnd"] > now) {
                           return item_card(
                             data: data,
                             UserData: widget.UserData,
