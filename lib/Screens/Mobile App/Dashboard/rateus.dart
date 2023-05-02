@@ -6,48 +6,121 @@ import '../Widgets/myTextField.dart';
 
 var looding = false;
 
-rateUS(context, postData, userData) {
-  showDialog(
-    context: context,
-    builder: (ctx) => AlertDialog(
-      title: const Text("Rate Product"),
-      content: rateStar(num),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () async {
-            try {
-              var data = postData['rate'] ?? [];
-              data.add({
-                "UID": userData["UID"],
-              });
-              await FirebaseFirestore.instance
-                  .collection("products")
-                  .doc(postData["Key"])
-                  .update({"Bid": data});
-              toast("Bid Uploaded");
-            } catch (e) {
-              print(e);
-              toast(e.toString());
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            child: const Text("Confirm"),
-          ),
-        ),
-      ],
-    ),
-  );
+class rateStar extends StatefulWidget {
+  final Map postData;
+  final Map userData;
+  const rateStar({super.key, required this.postData, required this.userData});
+
+  @override
+  State<rateStar> createState() => _rateStarState();
 }
 
-Widget rateStar(num) {
-  return Row(
-    children: [
-      Icon(num <= 2 ? Icons.star : Icons.star_border, color: Colors.amber),
-      Icon(num <= 4 ? Icons.star : Icons.star_border, color: Colors.amber),
-      Icon(num <= 6 ? Icons.star : Icons.star_border, color: Colors.amber),
-      Icon(num <= 8 ? Icons.star : Icons.star_border, color: Colors.amber),
-      Icon(num <= 10 ? Icons.star : Icons.star_border, color: Colors.amber),
-    ],
-  );
+class _rateStarState extends State<rateStar> {
+  var rate = 0;
+  var num = 0.0;
+  @override
+  Widget build(BuildContext context) {
+    var ratedata = widget.postData['rate'] ?? [0];
+    setState(() {
+      var numt = ratedata.fold(0, (previous, current) => previous + current);
+      num = numt / ratedata.length;
+    });
+    print("num======>${num}");
+    rateUS(context, postData, userData) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Rate Product"),
+          content:
+              StatefulBuilder(// You need this, notice the parameters below:
+                  builder: (BuildContext context, StateSetter setState) {
+            return Row(
+              children: [
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        rate = 2;
+                      });
+                    },
+                    child: Icon(rate >= 2 ? Icons.star : Icons.star_border,
+                        color: Colors.amber)),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        rate = 4;
+                      });
+                    },
+                    child: Icon(rate >= 4 ? Icons.star : Icons.star_border,
+                        color: Colors.amber)),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        rate = 6;
+                      });
+                    },
+                    child: Icon(rate >= 6 ? Icons.star : Icons.star_border,
+                        color: Colors.amber)),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        rate = 8;
+                      });
+                    },
+                    child: Icon(rate >= 8 ? Icons.star : Icons.star_border,
+                        color: Colors.amber)),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        rate = 10;
+                      });
+                    },
+                    child: Icon(rate >= 10 ? Icons.star : Icons.star_border,
+                        color: Colors.amber)),
+              ],
+            );
+          }),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                try {
+                  var data = postData['rate'] ?? [];
+                  data.add(rate);
+                  await FirebaseFirestore.instance
+                      .collection("products")
+                      .doc(postData["Key"])
+                      .update({"rate": data});
+                  // toast("rate Uploaded");
+                  setState(() {
+                    rate = 0;
+                  });
+                  Navigator.pop(context);
+                } catch (e) {
+                  toast(e.toString());
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                child: const Text("Confirm"),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return InkWell(
+      onTap: () {
+        rateUS(context, widget.postData, widget.userData);
+      },
+      child: Row(
+        children: [
+          Icon(num >= 2 ? Icons.star : Icons.star_border, color: Colors.amber),
+          Icon(num >= 4 ? Icons.star : Icons.star_border, color: Colors.amber),
+          Icon(num >= 6 ? Icons.star : Icons.star_border, color: Colors.amber),
+          Icon(num >= 8 ? Icons.star : Icons.star_border, color: Colors.amber),
+          Icon(num >= 10 ? Icons.star : Icons.star_border, color: Colors.amber),
+        ],
+      ),
+    );
+  }
 }

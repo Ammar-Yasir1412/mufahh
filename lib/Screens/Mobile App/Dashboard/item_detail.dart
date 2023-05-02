@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mufahh/Screens/Mobile%20App/Dashboard/rateus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Functions/toast.dart';
@@ -188,21 +189,30 @@ class _item_detailState extends State<item_detail> {
                           fontSize: 28,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              // "Last Bid: ${widget.data["lastBid"]}",
-                              widget.data["bidStart"] > now|| widget.data["bidStart"] > now
-                                  ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
-                                  : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
-                              style: const TextStyle(
-                                fontSize: 17,
-                              ),
+                      Column(
+                        children: [
+                          rateStar(
+                            postData: widget.data,
+                            userData: widget.UserData,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  // "Last Bid: ${widget.data["lastBid"]}",
+                                  widget.data["bidStart"] > now ||
+                                          widget.data["bidStart"] > now
+                                      ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
+                                      : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -224,7 +234,7 @@ class _item_detailState extends State<item_detail> {
                               throw Exception('Could not launch $_url');
                             }
                           },
-                          icon: const Icon(Icons.gps_fixed ))
+                          icon: const Icon(Icons.gps_fixed))
                     ],
                   ),
                   _spacer(),
