@@ -190,14 +190,18 @@ class _item_detailState extends State<item_detail> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30.0),
-                        child: Text(
-                          // "Last Bid: ${widget.data["lastBid"]}",
-                          widget.data["bidEnd"] > now
-                              ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
-                              : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
-                          style: const TextStyle(
-                            fontSize: 17,
-                          ),
+                        child: Row(
+                          children: [
+                            Text(
+                              // "Last Bid: ${widget.data["lastBid"]}",
+                              widget.data["bidStart"] > now|| widget.data["bidStart"] > now
+                                  ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
+                                  : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
+                              style: const TextStyle(
+                                fontSize: 17,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

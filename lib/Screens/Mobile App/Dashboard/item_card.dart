@@ -103,7 +103,8 @@ class _item_cardState extends State<item_card> {
                           height: 10,
                         ),
                         Text(
-                          widget.data["bidEnd"] > now
+                          widget.data["bidStart"] > now ||
+                                  widget.data["bidStart"] > now
                               ? "Live After: ${dateConverte(widget.data["bidStart"], "Left")}"
                               : "Live Now: ${dateConverte(widget.data["bidEnd"], "Left")}",
                           style: const TextStyle(
