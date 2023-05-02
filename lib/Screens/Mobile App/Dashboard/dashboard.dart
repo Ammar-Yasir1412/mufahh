@@ -120,13 +120,13 @@ class _dashboardState extends State<dashboard> {
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SearchingL(
-                                    UserData: widget.UserData,
-                                    searching: searchCTRL.text,
-                                  )));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SearchingL(
+                                                    UserData: widget.UserData,
+                                                    searching: searchCTRL.text,
+                                                  )));
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.all(14),

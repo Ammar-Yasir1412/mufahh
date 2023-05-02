@@ -30,11 +30,11 @@ class _rateStarState extends State<rateStar> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text("Rate Product"),
+          title: const Center(child: Text("Rate us")),
           content:
               StatefulBuilder(// You need this, notice the parameters below:
                   builder: (BuildContext context, StateSetter setState) {
-            return Row(
+            return Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
                     onTap: () {
@@ -109,8 +109,11 @@ class _rateStarState extends State<rateStar> {
     }
 
     return InkWell(
-      onTap: () {
-        rateUS(context, widget.postData, widget.userData);
+      onTap: () async {
+      await  rateUS(context, widget.postData, widget.userData);
+      setState(() {
+        
+      });
       },
       child: Row(
         children: [
