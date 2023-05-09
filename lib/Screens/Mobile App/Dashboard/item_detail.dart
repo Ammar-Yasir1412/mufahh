@@ -64,7 +64,6 @@ class _item_detailState extends State<item_detail> {
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('EEE d MMM').format(now);
         var data = widget.data['Bid'] ?? [];
-        if (widget.UserData["UID"] >= amount) {
           data.add({
             "UID": widget.UserData["UID"],
             "amount": amount,
@@ -79,9 +78,7 @@ class _item_detailState extends State<item_detail> {
               .doc(widget.data["Key"])
               .update({"Bid": data});
           toast("Bid Uploaded");
-        } else {
-          toast("ammount is low");
-        }
+      
       } else {
         toast("Please fill all text field");
       }
