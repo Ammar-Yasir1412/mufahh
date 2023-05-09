@@ -58,32 +58,30 @@ class _item_detailState extends State<item_detail> {
       looding = true;
     });
     var amount = amountCTRL.text;
-
+print("====>$amount");
     try {
       if (amount != '') {
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('EEE d MMM').format(now);
         var data = widget.data['Bid'] ?? [];
-          data.add({
-            "UID": widget.UserData["UID"],
-            "amount": amount,
-            "address": widget.UserData["address"],
-            "username": widget.UserData["username"],
-            "email": widget.UserData["email"],
-            "PhoneNo": widget.UserData["PhoneNo"],
-            "JoinDate": formattedDate,
-          });
-          await firestore
-              .collection("products")
-              .doc(widget.data["Key"])
-              .update({"Bid": data});
-          toast("Bid Uploaded");
-      
+        data.add({
+          "UID": widget.UserData["UID"],
+          "amount": amount,
+          "address": widget.UserData["address"],
+          "username": widget.UserData["username"],
+          "email": widget.UserData["email"],
+          "PhoneNo": widget.UserData["PhoneNo"],
+          "JoinDate": formattedDate,
+        });
+        await firestore
+            .collection("products")
+            .doc(widget.data["Key"])
+            .update({"Bid": data});
+        toast("Bid Uploaded");
       } else {
         toast("Please fill all text field");
       }
     } catch (e) {
-      print(e);
       toast(e.toString());
     }
     setState(() {
