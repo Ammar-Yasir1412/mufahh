@@ -16,14 +16,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  // final TextEditingController emailCtrl =
-  //     TextEditingController();
-  // final TextEditingController passwordCtrl =
-  //     TextEditingController();
-    final TextEditingController emailCtrl =
-      TextEditingController(text: "aaa@gmail.com");
+  final TextEditingController emailCtrl =
+      TextEditingController();
   final TextEditingController passwordCtrl =
-      TextEditingController(text: "Leq 1412");
+      TextEditingController();
+  //   final TextEditingController emailCtrl =
+  //     TextEditingController(text: "aaa@gmail.com");
+  // final TextEditingController passwordCtrl =
+  //     TextEditingController(text: "Leq 1412");
   bool inCheck = false;
   bool NoData = false;
   bool looding = false;
